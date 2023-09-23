@@ -5,6 +5,9 @@
  */
 package view;
 
+import bean.DrfFuncionario;
+import dao.DrfFuncionario_DAO;
+import java.util.List;
 import tools.Util;
 
 /**
@@ -12,7 +15,10 @@ import tools.Util;
  * @author u10154925179
  */
 public class JDlgDrfFuncionarioNovo extends javax.swing.JDialog {
-
+JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
+    FuncionarioControle funcionarioControle;
+    DrfFuncionario_DAO funcionario_DAO ;
+    DrfFuncionario funcionario;
     /**
      * Creates new form JDlgUsuariosNovo
      */
@@ -21,6 +27,13 @@ public class JDlgDrfFuncionarioNovo extends javax.swing.JDialog {
         initComponents();
         setTitle("Cadastro de Funcionarios");
         setLocationRelativeTo(null);
+        
+        funcionarioControle = new FuncionarioControle();
+        funcionario_DAO = new DrfFuncionario_DAO();
+        
+       // List lista = funcionario_DAO.listAll();
+       //funcionarioControle.setList(lista);
+        //jTable1.setModel(funcionarioControle);
     }
 
     /**
@@ -49,7 +62,7 @@ public class JDlgDrfFuncionarioNovo extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Nome", "Email", "Cpf"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -95,24 +108,39 @@ public class JDlgDrfFuncionarioNovo extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA = new JDlgDrfFuncionarioNovoIA (null, true);
-       jDlgFuncionarioNovoIA.setVisible(true);        // TODO add your handling code here:
+  jDlgFuncionarioNovoIA.setTitle("Inclusão");
+        jDlgFuncionarioNovoIA.setVisible(true);
+        
+ List lista= funcionario_DAO.listAll();
+       funcionarioControle.setList(lista);
+       jTable1.setModel(funcionarioControle);
+// TODO add your handling code here:
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-  JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA = new JDlgDrfFuncionarioNovoIA (null, true);
-       jDlgFuncionarioNovoIA.setVisible(true);       // TODO add your handling code here:
+   jDlgFuncionarioNovoIA.setTitle("Alteração");
+        jDlgFuncionarioNovoIA.setVisible(true);    // TODO add your handling code here:
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-
+ if (Util.perguntar("Deseja excluir o usuario?") == true){
+           int sel = jTable1.getSelectedRow();
+           funcionario = funcionarioControle.getBean(sel);
+           funcionario_DAO.delete(funcionario);
+           
+           
+           List lista = funcionario_DAO.listAll();
+           funcionarioControle.setList(lista);
+        } else{
+           Util.mensagem("Exclusão cancelada");
+        }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     /**

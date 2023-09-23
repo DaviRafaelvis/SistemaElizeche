@@ -1,5 +1,5 @@
 package bean;
-// Generated 16/09/2023 12:24:10 by Hibernate Tools 4.3.1
+// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="drf_compra_produto"
-    ,catalog="db_davielizeche"
+    ,catalog="db_davi_elizeche"
 )
 public class DrfCompraProduto  implements java.io.Serializable {
 
@@ -58,22 +58,22 @@ public class DrfCompraProduto  implements java.io.Serializable {
     }
 
     
-    @Column(name="drf_quantidade", nullable=false, precision=12, scale=0)
+    @Column(name="drf_quantidade", nullable=false, precision=10, scale=0)
     public double getDrfQuantidade() {
         return this.drfQuantidade;
     }
     
-    public void setDrfQuantidade(double drfQuantidade) {
+    public void setDrfQuantidade(long drfQuantidade) {
         this.drfQuantidade = drfQuantidade;
     }
 
     
-    @Column(name="drf_valor_unitario", nullable=false, precision=12, scale=0)
+    @Column(name="drf_valor_unitario", nullable=false, precision=10, scale=0)
     public double getDrfValorUnitario() {
         return this.drfValorUnitario;
     }
     
-    public void setDrfValorUnitario(double drfValorUnitario) {
+    public void setDrfValorUnitario(long drfValorUnitario) {
         this.drfValorUnitario = drfValorUnitario;
     }
 

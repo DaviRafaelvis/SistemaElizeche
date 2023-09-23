@@ -5,22 +5,38 @@
  */
 package view;
 
+import bean.DrfProduto;
+import dao.DrfProduto_DAO;
+import java.util.List;
+import tools.Util;
+
 /**
  *
  * @author u07875424151
  */
 public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
-
+ JDlgDrfProdutoNovoIA jDlgProdutoNovoIA;
+    ProdutoControle produtoControle;
+    DrfProduto_DAO produto_DAO ;
+    DrfProduto produto;
     /**
      * Creates new form JDlgUsuariosNovo
      */
     public JDlgDrfProdutoNovo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Cadastro de Produtos");
+        jDlgProdutoNovoIA = new JDlgDrfProdutoNovoIA(null, true);
+        setTitle("Cadastro de Usuários");
         setLocationRelativeTo(null);
+        
+        produtoControle = new ProdutoControle();
+        produto_DAO = new DrfProduto_DAO();
+        //List lista = produto_DAO.listAll();
+       //produtoControle.setList(lista);
+       // jTable1.setModel(produtoControle);
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,13 +69,13 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Descrição", "Valor", "Coleção", "Categoria"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -103,9 +119,9 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -113,18 +129,31 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
-        JDlgDrfProdutoNovoIA jDlgDrfProdutoNovoIA = new JDlgDrfProdutoNovoIA(null, true);
-        jDlgDrfProdutoNovoIA.setVisible(true);
+      jDlgProdutoNovoIA.setTitle("Inclusão");
+        jDlgProdutoNovoIA.setVisible(true);
+        
+        List lista= produto_DAO.listAll();
+       produtoControle.setList(lista);
+       jTable1.setModel(produtoControle);
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-         JDlgDrfProdutoNovoIA jDlgDrfProdutoNovoIA = new JDlgDrfProdutoNovoIA(null, true);
-        jDlgDrfProdutoNovoIA.setVisible(true);
+         jDlgProdutoNovoIA.setTitle("Alteração");
+        jDlgProdutoNovoIA.setVisible(true);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-
+ if (Util.perguntar("Deseja excluir o usuario?") == true){
+           int sel = jTable1.getSelectedRow();
+           produto = produtoControle.getBean(sel);
+           produto_DAO.delete(produto);
+           //atulizar lista no jtable
+           List lista = produto_DAO.listAll();
+           produtoControle.setList(lista);
+        } else{
+           Util.mensagem("Exclusão cancelada");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 

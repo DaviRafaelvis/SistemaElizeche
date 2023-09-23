@@ -108,7 +108,7 @@ public class JFrmDrfPrincipal extends javax.swing.JFrame {
         });
         jMnuCadastro.add(jMnuProduto);
 
-        jMnuFuncionario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMnuFuncionario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMnuFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/funcionario.icon.png"))); // NOI18N
         jMnuFuncionario.setText("Funcionário");
         jMnuFuncionario.addActionListener(new java.awt.event.ActionListener() {

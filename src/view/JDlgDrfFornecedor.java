@@ -26,6 +26,8 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
 
     private boolean incluindo;
     MaskFormatter mascaraTelefone, mascaraCnpj;
+    DrfFornecedor_DAO fornecedor_DAO;
+    DrfFornecedor fornecedor;
 
     /**
      * Creates new form JDlgFornecedor1
@@ -33,10 +35,12 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     public JDlgDrfFornecedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnAlterar, jBtnExcluir );
-        Util.habilitar(true,jBtnIncluir, jBtnCancelar, jBtnPesquisar);
+        Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnAlterar, jBtnExcluir);
+        Util.habilitar(true, jBtnIncluir, jBtnCancelar, jBtnPesquisar);
         setTitle("Fornecedor");
         setLocationRelativeTo(null);
+        fornecedor_DAO = new DrfFornecedor_DAO();
+        fornecedor = new DrfFornecedor();
         try {
             mascaraCnpj = new MaskFormatter("##.###.###/####-##");
             mascaraTelefone = new MaskFormatter("(##)# ####-####");
@@ -50,6 +54,27 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
 
     }
 
+    public DrfFornecedor viewBean() {
+      fornecedor = new DrfFornecedor();
+      
+        fornecedor.setDrfIdfornecedor(Util.strInt(jTxtIdFornecedor.getText()));
+        fornecedor.setDrfNome(jTxtNome.getText());
+        fornecedor.setDrfTelefone(jFmtTelefone.getText());
+        fornecedor.setDrfEmail(jTxtEmail.getText());
+        fornecedor.setDrfCnpj(jFmtCnpj.getText());
+        fornecedor.setDrfEndereco(jTxtEndereco.getText());
+        return fornecedor;
+    }
+
+    public void beanView(DrfFornecedor fornecedor) {
+        
+        jTxtIdFornecedor.setText(Util.intStr(fornecedor.getDrfIdfornecedor()));;
+        jTxtNome.setText(fornecedor.getDrfNome());
+        jFmtTelefone.setText(fornecedor.getDrfTelefone());
+        jTxtEmail.setText(fornecedor.getDrfEmail());
+        jFmtCnpj.setText(fornecedor.getDrfCnpj());
+        jTxtEndereco.setText(fornecedor.getDrfEndereco());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,7 +116,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
 
         jLabel4.setText("CNPJ");
 
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir_1.png"))); // NOI18N
         jBtnIncluir.setText("INCLUIR");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +124,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
             }
         });
 
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar_1.png"))); // NOI18N
         jBtnAlterar.setText("ALTERAR");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +140,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
             }
         });
 
-        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
+        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/confirmar.png"))); // NOI18N
         jBtnConfirmar.setText("CONFIRMAR");
         jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +148,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
             }
         });
 
-        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancelar_1.png"))); // NOI18N
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/exit_1.png"))); // NOI18N
         jBtnCancelar.setText("CANCELAR");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +156,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
             }
         });
 
-        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
+        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar_1.png"))); // NOI18N
         jBtnPesquisar.setText("PESQUISAR");
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +217,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4))
@@ -214,12 +239,12 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTxtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 49, Short.MAX_VALUE)))
+                        .addGap(0, 53, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jFmtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnIncluir)
                     .addComponent(jBtnAlterar)
@@ -234,58 +259,62 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-       Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
+        Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco);// TODO add your handling code here:
-        incluindo = false;
+        incluindo = true;
 // TODO add your handling code here:
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-       Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
-       
+        Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
+
         incluindo = false;// TODO add your handling code here:
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-         if (Util.perguntar("Deseja excluir o registro?") == true) {
-          
-            } else {
-                Util.mensagem("Exclusão cancelada");
-            }
-            
-              Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar);    // TODO add your handling code here:
+         if (Util.perguntar("Deseja excluir o registro?") == true){
+          fornecedor = viewBean();
+           fornecedor_DAO.delete(fornecedor);
+       }
+       else {
+        
+            Util.mensagem("Exclusão cancelada");
+        }
+        Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar);    // TODO add your handling code here:
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-       //DrfUsuarios fornecedor = viewBean();
-        //DrfUsuariosDAO usuarios_DAO = new DrfUsuariosDAO();
-        //if (incluindo == true) {
-          //  usuarios_DAO.insert(usuarios);
-        //} else {
-          //  usuarios_DAO.update(usuarios);
-        //}
-   
+          fornecedor = viewBean();
+        fornecedor_DAO = new DrfFornecedor_DAO();
+        if (incluindo == true) {
+            fornecedor_DAO.insert(fornecedor);
+        } else {
+            fornecedor_DAO.update(fornecedor);
+        }
+
         Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnExcluir);
         Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
-         Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco);  // TODO add your handling code here:
+        Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco);  // TODO add your handling code here:
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-     Util.habilitar(false);
+        Util.habilitar(false);
         Util.mensagem("Cancelamento concluido");
-        Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar);
-        
+        Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj);
+
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-       String resp = JOptionPane.showInputDialog(null, "Entre com o código (PK)",
-                "Pesquisar", 2);
-        int id = Integer.parseInt(resp);
+          
+        JDlgFornecedorPesquisa jDlgFornecedorPesquisa = new JDlgFornecedorPesquisa(null, true);
+        jDlgFornecedorPesquisa.setTelaAnterior(this);
+        jDlgFornecedorPesquisa.setVisible(true);
+        
         Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnExcluir);
         Util.habilitar(true, jBtnConfirmar, jBtnCancelar, jBtnAlterar);
         //transformou string em inteiro
-        
+
         //DrfFornecedor DrfFornecedor_DAO = new DrfFornecedor_DAO();
         //DrfFornecedor fornecedor = (DrfFornecedor)  DrfFornecedor_DAO.list(id);
         //retorna um bean e mostra na tela

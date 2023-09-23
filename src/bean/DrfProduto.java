@@ -1,5 +1,5 @@
 package bean;
-// Generated 16/09/2023 12:24:10 by Hibernate Tools 4.3.1
+// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="drf_produto"
-    ,catalog="db_davielizeche"
+    ,catalog="db_davi_elizeche"
 )
 public class DrfProduto  implements java.io.Serializable {
 
@@ -26,27 +26,20 @@ public class DrfProduto  implements java.io.Serializable {
      private String drfCategoria;
      private String drfDescricao;
      private String drfColecao;
-     private Set drfCompraProdutos = new HashSet(0);
+
 
     public DrfProduto() {
     }
 
 	
-    public DrfProduto(int drfIdProduto, double drfValorUnitario, String drfCategoria, String drfDescricao, String drfColecao) {
+    public DrfProduto(int drfIdProduto, float drfValorUnitario, String drfCategoria, String drfDescricao, String drfColecao) {
         this.drfIdProduto = drfIdProduto;
         this.drfValorUnitario = drfValorUnitario;
         this.drfCategoria = drfCategoria;
         this.drfDescricao = drfDescricao;
         this.drfColecao = drfColecao;
     }
-    public DrfProduto(int drfIdProduto, float drfValorUnitario, String drfCategoria, String drfDescricao, String drfColecao, Set drfCompraProdutos) {
-       this.drfIdProduto = drfIdProduto;
-       this.drfValorUnitario = drfValorUnitario;
-       this.drfCategoria = drfCategoria;
-       this.drfDescricao = drfDescricao;
-       this.drfColecao = drfColecao;
-       this.drfCompraProdutos = drfCompraProdutos;
-    }
+    
    
      @Id 
 
@@ -100,14 +93,7 @@ public class DrfProduto  implements java.io.Serializable {
         this.drfColecao = drfColecao;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="drfProduto")
-    public Set getDrfCompraProdutos() {
-        return this.drfCompraProdutos;
-    }
-    
-    public void setDrfCompraProdutos(Set drfCompraProdutos) {
-        this.drfCompraProdutos = drfCompraProdutos;
-    }
+
 
 
 

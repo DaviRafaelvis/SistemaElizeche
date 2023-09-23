@@ -48,8 +48,14 @@
                   <Component id="jTxtCodigo" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTxtNome" alignment="0" pref="396" max="32767" attributes="0"/>
-                          <Component id="jTxtApelido" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jTxtApelido" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jTxtNome" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -62,42 +68,49 @@
                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jFmtData" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jFmtTelefone" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jCboSexo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jFmtRg" pref="120" max="32767" attributes="0"/>
-                                              <Component id="jTxtEmail" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jCboSexo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jTxtCelular" min="-2" pref="120" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="jFmtTelefone" max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jTxtEmail" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                              <Component id="jFmtCelular" min="-2" pref="124" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jFmtRg" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="58" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jTxtBairro" max="32767" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <Component id="jFmtCpf" pref="152" max="32767" attributes="0"/>
-                          <Component id="jTxtCidade" alignment="0" pref="152" max="32767" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <Component id="jFmtCep" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                           <Component id="jTxtPais" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTxtCidade" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jFmtCep" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="126" max="32767" attributes="0"/>
+              <EmptySpace pref="142" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,11 +137,11 @@
                   <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTxtApelido" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTxtPais" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jTxtPais" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxtApelido" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -162,9 +175,9 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jCboSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTxtBairro" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTxtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jFmtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="34" max="32767" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -174,11 +187,6 @@
     <Component class="javax.swing.JFormattedTextField" name="jFmtData">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFmtDataActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JPasswordField" name="jTxtCidade">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxtCidadeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -264,19 +272,10 @@
         <Property name="text" type="java.lang.String" value="CEP"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jFmtCep">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFmtCepActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefone"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jFmtTelefone">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jFmtRg">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -331,7 +330,15 @@
         <Property name="text" type="java.lang.String" value="Celular"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTxtCelular">
+    <Component class="javax.swing.JFormattedTextField" name="jFmtCelular">
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTxtCidade">
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="jFmtTelefone">
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="jFmtRg">
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="jFmtCep">
     </Component>
   </SubComponents>
 </Form>

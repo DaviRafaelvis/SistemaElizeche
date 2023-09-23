@@ -27,7 +27,8 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
 
     private boolean incluindo;
     MaskFormatter mascaraCPF, mascaraData;
-
+ public DrfUsuarios usuarios;
+    public DrfUsuariosDAO usuarios_DAO;
     /**
      * Creates new form JDlgUsuarios
      */
@@ -35,8 +36,8 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
         super(parent, modal);
       
         initComponents();
-          Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnConfirmar, jBtnAlterar, jBtnExcluir );
-        Util.habilitar(true,jBtnIncluir, jBtnCancelar, jBtnPesquisar);
+        Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
+        Util.habilitar(true, jBtnIncluir, jBtnExcluir, jBtnPesquisar);
         setTitle("Usuarios");
         setLocationRelativeTo(null);
         try {
@@ -52,34 +53,17 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
     
 
 
-    public void LimparCampos() {
-        jTxtCodigo.setText("");
-        jCboNivel.setSelectedIndex(-1);
-        jChbAtivo.setSelected(false);
-        jTxtNome.setText("");
-        jTxtApelido.setText("");
-        jFmtCpf.setText("");
-        jFmtData.setText("");
-        jPwfSenha.setText("");
 
-    }
 
-    public DrfUsuarios viewBean() {
-        DrfUsuarios usuarios = new DrfUsuarios();
-        int id = Integer.parseInt(jTxtCodigo.getText());
-
-        usuarios.setDrfIdUsuarios(id);
+    public DrfUsuarios viewBean(){ 
+        
+     usuarios = new DrfUsuarios();
+     
+        usuarios.setDrfIdUsuarios(Util.strInt(jTxtCodigo.getText()));
+            usuarios.setDrfDataNascimento(Util.strDate(jFmtData.getText()));
         usuarios.setDrfNome(jTxtNome.getText());
         usuarios.setDrfApelido(jTxtApelido.getText());
-        usuarios.setDrfCpf(jFmtCpf.getText());
-        
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            usuarios.setDrfDataNascimento(formato.parse(jFmtData.getText()));
-        } catch (ParseException ex) {
-            Logger.getLogger(JDlgDrfUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        usuarios.setDrfCpf(jFmtCpf.getText());       
         usuarios.setDrfSenha(jPwfSenha.getText());
         usuarios.setDrfNivel(jCboNivel.getSelectedIndex());
         if (jChbAtivo.isSelected() == true) {
@@ -88,17 +72,16 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             usuarios.setDrfAtivo("N");
         }
         return usuarios;
+        
     }
-
     public void beanView(DrfUsuarios usuarios) {
-        String id = String.valueOf(usuarios.getDrfIdUsuarios());
-        jTxtCodigo.setText(id);
+        
+       jTxtCodigo.setText(Util.intStr(usuarios.getDrfIdUsuarios()));;
         jTxtNome.setText(usuarios.getDrfNome());
         jTxtApelido.setText(usuarios.getDrfApelido());
         jFmtCpf.setText(usuarios.getDrfCpf());
         jPwfSenha.setText(usuarios.getDrfSenha());
-      SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-       jFmtData.setText(formato.format(usuarios.getDrfDataNascimento()));
+    jFmtData.setText(Util.datestr(usuarios.getDrfDataNascimento()));
         jCboNivel.setSelectedIndex(usuarios.getDrfNivel());
         if (usuarios.getDrfAtivo().equals("S") == true) {
             jChbAtivo.setSelected(true);
@@ -197,7 +180,7 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir_1.png"))); // NOI18N
         jBtnIncluir.setText("INCLUIR");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +188,7 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar_1.png"))); // NOI18N
         jBtnAlterar.setText("ALTERAR");
         jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +196,7 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
+        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir_1.png"))); // NOI18N
         jBtnExcluir.setText("EXCLUIR");
         jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +204,7 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok.png"))); // NOI18N
+        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ok_1.png"))); // NOI18N
         jBtnConfirmar.setText("CONFIRMAR");
         jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,7 +212,7 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancelar.png"))); // NOI18N
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancelar_1.png"))); // NOI18N
         jBtnCancelar.setText("CANCELAR");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +220,7 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
+        jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar_1.png"))); // NOI18N
         jBtnPesquisar.setText("PESQUISAR");
         jBtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +335,7 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
         Util.habilitar(true, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);// TODO add your handling code here:
-        incluindo = false;
+        incluindo = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
@@ -366,10 +349,11 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxtCodigoActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-         Util.habilitar(false);
+         Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnCancelar);
         Util.mensagem("Cancelamento concluido");
-      Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jCboNivel, jChbAtivo, jBtnConfirmar, jBtnCancelar, jPwfSenha);
+      Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jCboNivel, jChbAtivo);
         
+      
         
         
         
@@ -378,12 +362,17 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-        Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnConfirmar, jBtnExcluir);
-        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        usuarios = viewBean();
+       // Usuarios_DAO usuarios_DAO = new Usuarios_DAO();
+
+        if (incluindo == true) {
+            usuarios_DAO.insert(usuarios);
+        } else {
+            usuarios_DAO.update(usuarios);
+        }
         
         
-        
-         Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);
+       Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);
          
 // TODO add your handling code here:
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
@@ -410,27 +399,24 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jChbAtivoActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        if (Util.perguntar("Deseja excluir o registro?") == true) {
-          
-            } else {
-                Util.mensagem("Exclusão cancelada");
-            }
-            
-              Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jCboNivel, jChbAtivo, jBtnConfirmar, jBtnCancelar, jPwfSenha);
+       if (Util.perguntar("Deseja excluir o registro?") == true){
+           usuarios=viewBean();
+           usuarios_DAO.delete(usuarios);
+       }
+       else {
+        
+            Util.mensagem("Exclusão cancelada");
+        }
+      
+        Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-         String resp = JOptionPane.showInputDialog(null, "Entre com o código (PK)",
-                "Pesquisar", 2);
-        int id = Integer.parseInt(resp);
-        //transformou string em inteiro
-        
-        DrfUsuariosDAO usuario_DAO = new DrfUsuariosDAO();
-        DrfUsuarios usuarios = (DrfUsuarios)  usuario_DAO.list(id);
-        //retorna um bean e mostra na tela
-        beanView(usuarios);
+        JDlgDrfUsuariosPesquisa jDlgUsuariosPesquisa = new JDlgDrfUsuariosPesquisa(null, true);
+        jDlgUsuariosPesquisa.setTelaAnterior(this);
+        jDlgUsuariosPesquisa.setVisible(true);
                 
        
     }//GEN-LAST:event_jBtnPesquisarActionPerformed

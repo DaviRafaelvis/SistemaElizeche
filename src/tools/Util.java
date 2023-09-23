@@ -5,7 +5,11 @@
  */
 package tools;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -58,18 +62,26 @@ public class Util {
      return Integer.valueOf(cad);
      }
       public static String intStr(int num){
-     return null;
+     return String.valueOf(num);
      }
-      public static int strDouble(String cad){
-     return 0;
+      public static Double strDouble(String cad){
+     return Double.valueOf(cad);
      }
         public static String doubleStr(double num){
-     return "";
+      return String.valueOf(num);
      }
-       public static Date strDate(String cad){
-     return null;
-     }
-        public static String dateStr(Date num){
-     return "";
-     }
+      public static Date  strDate(String cad) {
+        SimpleDateFormat formataNascimento = new SimpleDateFormat ("dd/MM/yyyy"); //convertendo string para Date
+try {
+return formataNascimento.parse (cad);
+} catch (ParseException ex) {
+Logger.getLogger (Util.class.getName()).log (Level.SEVERE, null, ex);
+return null;
+    }
+    }
+    
+    public static String datestr(Date num) {
+       SimpleDateFormat formatoNascimento = new SimpleDateFormat ("dd/MM/yyyy");// Convertendo data para String
+return formatoNascimento.format (num);
+    }
 }

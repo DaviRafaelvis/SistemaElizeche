@@ -5,12 +5,19 @@
  */
 package view;
 
+import bean.DrfProduto;
+import dao.DrfProduto_DAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import tools.Util;
+
 /**
  *
  * @author u07875424151
  */
 public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
-
+ DrfProduto produto; 
+       DrfProduto_DAO produto_DAO; 
     /**
      * Creates new form JDlgUsuariosNovoIA
      */
@@ -21,7 +28,29 @@ public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
         setTitle("Inclusão de Produtos");
         setLocationRelativeTo(null);
     }
+    
+   public DrfProduto viewBean() {
+       produto = new DrfProduto();
+       /*novo jeito de converter. Apartir do Util*/ 
+       produto.setDrfIdProduto(Util.strInt(jTxtCodigo.getText()));
+        
+        produto.setDrfDescricao(jTxtDescricao.getText());
+        produto.setDrfValorUnitario(Util.strDouble(jTxtValor_unitario.getText()));
+        produto.setDrfColecao(jTxtColecao.getText());       
+        produto.setDrfCategoria(jTxtCategoria.getText());
+        
+        return produto;
+        
+    }
 
+ public void beanView(DrfProduto produto) {
+        jTxtCodigo.setText(Util.intStr(produto.getDrfIdProduto()));;
+        jTxtDescricao.setText(produto.getDrfDescricao());
+        jTxtValor_unitario.setText(Util.doubleStr(produto.getDrfValorUnitario()));
+        jTxtColecao.setText(produto.getDrfColecao());
+        jTxtCategoria.setText(produto.getDrfCategoria());
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +60,6 @@ public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTxtColeção = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jTxtCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -39,19 +67,14 @@ public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTxtCategoria = new javax.swing.JTextField();
-        jFmtCpf = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jBtnOk = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
+        jTxtDescricao = new javax.swing.JTextField();
+        jTxtColecao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jTxtColeção.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtColeçãoActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("Código");
 
@@ -60,12 +83,6 @@ public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
         jLabel3.setText("Descrição");
 
         jLabel4.setText("Categoria");
-
-        jFmtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFmtCpfActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Coleção");
 
@@ -94,29 +111,28 @@ public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTxtValor_unitario, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(139, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jFmtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtColeção, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jTxtColecao)))
+                    .addComponent(jLabel1)
+                    .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTxtValor_unitario, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(139, 139, 139))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,31 +150,30 @@ public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTxtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTxtColeção, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                    .addComponent(jTxtColecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtColeçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtColeçãoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtColeçãoActionPerformed
-
-    private void jFmtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFmtCpfActionPerformed
-
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
-setVisible(false);        
+ setVisible(false);
+               produto = viewBean();
+
+        produto_DAO = new DrfProduto_DAO();
+
+        produto_DAO.insert(produto);
+
+       
+        Util.limparCampos(); 
 // TODO add your handling code here:
     }//GEN-LAST:event_jBtnOkActionPerformed
 
@@ -215,7 +230,6 @@ setVisible(false);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnOk;
-    private javax.swing.JFormattedTextField jFmtCpf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -224,7 +238,8 @@ setVisible(false);
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTxtCategoria;
     private javax.swing.JTextField jTxtCodigo;
-    private javax.swing.JFormattedTextField jTxtColeção;
+    private javax.swing.JTextField jTxtColecao;
+    private javax.swing.JTextField jTxtDescricao;
     private javax.swing.JTextField jTxtValor_unitario;
     // End of variables declaration//GEN-END:variables
 }

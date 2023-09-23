@@ -1,5 +1,5 @@
 package bean;
-// Generated 16/09/2023 12:24:10 by Hibernate Tools 4.3.1
+// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="drf_fornecedor"
-    ,catalog="db_davielizeche"
+    ,catalog="db_davi_elizeche"
 )
 public class DrfFornecedor  implements java.io.Serializable {
 
@@ -27,7 +27,7 @@ public class DrfFornecedor  implements java.io.Serializable {
      private String drfTelefone;
      private String drfCnpj;
      private String drfEndereco;
-     private Set drfCompras = new HashSet(0);
+     
 
     public DrfFornecedor() {
     }
@@ -41,15 +41,7 @@ public class DrfFornecedor  implements java.io.Serializable {
         this.drfCnpj = drfCnpj;
         this.drfEndereco = drfEndereco;
     }
-    public DrfFornecedor(int drfIdfornecedor, String drfNome, String drfEmail, String drfTelefone, String drfCnpj, String drfEndereco, Set drfCompras) {
-       this.drfIdfornecedor = drfIdfornecedor;
-       this.drfNome = drfNome;
-       this.drfEmail = drfEmail;
-       this.drfTelefone = drfTelefone;
-       this.drfCnpj = drfCnpj;
-       this.drfEndereco = drfEndereco;
-       this.drfCompras = drfCompras;
-    }
+   
    
      @Id 
 
@@ -113,14 +105,7 @@ public class DrfFornecedor  implements java.io.Serializable {
         this.drfEndereco = drfEndereco;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="drfFornecedor")
-    public Set getDrfCompras() {
-        return this.drfCompras;
-    }
-    
-    public void setDrfCompras(Set drfCompras) {
-        this.drfCompras = drfCompras;
-    }
+
 
 
 

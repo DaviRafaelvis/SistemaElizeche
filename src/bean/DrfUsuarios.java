@@ -1,5 +1,5 @@
 package bean;
-// Generated 16/09/2023 12:24:10 by Hibernate Tools 4.3.1
+// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="drf_usuarios"
-    ,catalog="db_davielizeche"
+    ,catalog="db_davi_elizeche"
 )
 public class DrfUsuarios  implements java.io.Serializable {
 

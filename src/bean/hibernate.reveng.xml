@@ -40,11 +40,11 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="db_davielizeche"/>
-  <table-filter match-name="drf_compra_produto"/>
-  <table-filter match-name="drf_funcionario"/>
-  <table-filter match-name="drf_fornecedor"/>
-  <table-filter match-name="drf_produto"/>
+  <schema-selection match-catalog="db_davi_elizeche"/>
   <table-filter match-name="drf_compra"/>
+  <table-filter match-name="drf_funcionario"/>
   <table-filter match-name="drf_usuarios"/>
+  <table-filter match-name="drf_produto"/>
+  <table-filter match-name="drf_compra_produto"/>
+  <table-filter match-name="drf_fornecedor"/>
 </hibernate-reverse-engineering>
