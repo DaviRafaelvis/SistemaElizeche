@@ -9,19 +9,20 @@ import bean.DrfFornecedor;
 import bean.DrfProduto;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author rafae
  */
-public class DrfProduto_DAO extends DAO_Abstract{
+public class DrfProduto_DAO extends DAO_Abstract{ 
 
    @Override
     public void insert(Object object) {
        session.beginTransaction();
       session.save(object);
-      session.beginTransaction().commit();
+      session.getTransaction().commit();
     }
 
     @Override
@@ -30,7 +31,7 @@ public class DrfProduto_DAO extends DAO_Abstract{
       session.flush();
       session.clear();
       session.update(object);
-      session.beginTransaction().commit();
+      session.getTransaction().commit();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class DrfProduto_DAO extends DAO_Abstract{
           session.flush();
       session.clear();
       session.delete(object);
-      session.beginTransaction().commit();
+      session.getTransaction().commit();
     }
     
 
@@ -60,5 +61,6 @@ public class DrfProduto_DAO extends DAO_Abstract{
          List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
+
 }
 }

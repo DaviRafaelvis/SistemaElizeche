@@ -10,6 +10,7 @@ import dao.DrfUsuariosDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
@@ -36,10 +37,11 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
         super(parent, modal);
       
         initComponents();
-        Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
-        Util.habilitar(true, jBtnIncluir, jBtnExcluir, jBtnPesquisar);
+        Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnPesquisar, jBtnExcluir);
         setTitle("Usuarios");
         setLocationRelativeTo(null);
+       usuarios_DAO = new DrfUsuariosDAO();
         try {
             mascaraCPF = new MaskFormatter("###.###.###-##");
             mascaraData = new MaskFormatter("##/##/####");
@@ -333,14 +335,19 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
         Util.habilitar(true, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
-        Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
-        Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);// TODO add your handling code here:
+                    Util.habilitar(false,jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+
+        
+        Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);
+
+// TODO add your handling code here:
         incluindo = true;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(true, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
+        
         incluindo = false;
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
@@ -349,7 +356,8 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxtCodigoActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-         Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnCancelar);
+         Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnAlterar, jBtnExcluir);
+           Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
         Util.mensagem("Cancelamento concluido");
       Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jCboNivel, jChbAtivo);
         
@@ -357,12 +365,13 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
         
         
         
-       
+     
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         usuarios = viewBean();
+        
        // Usuarios_DAO usuarios_DAO = new Usuarios_DAO();
 
         if (incluindo == true) {
@@ -371,7 +380,8 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
             usuarios_DAO.update(usuarios);
         }
         
-        
+         Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnAlterar, jBtnExcluir);
+           Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
        Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);
          
 // TODO add your handling code here:
@@ -407,10 +417,13 @@ public class JDlgDrfUsuarios extends javax.swing.JDialog {
         
             Util.mensagem("Exclusão cancelada");
         }
+       
       
         Util.limparCampos(jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo);
 
-        // TODO add your handling code here:
+    Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnAlterar, jBtnExcluir);
+     Util.habilitar(false, jTxtCodigo, jTxtNome, jTxtApelido, jFmtCpf, jFmtData, jPwfSenha, jCboNivel, jChbAtivo, jBtnCancelar, jBtnConfirmar);
+    
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed

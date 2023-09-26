@@ -21,12 +21,12 @@ public class DrfUsuariosDAO extends DAO_Abstract{
     public void insert(Object object) {
        session.beginTransaction();
       session.save(object);
-      session.beginTransaction().commit();
+      session.getTransaction().commit();
     }
 
     @Override
     public void update(Object object) {
-        session.beginTransaction();
+        session.getTransaction();
       session.flush();
       session.clear();
       session.update(object);
@@ -35,7 +35,7 @@ public class DrfUsuariosDAO extends DAO_Abstract{
 
     @Override
     public void delete(Object object) {
-         session.beginTransaction();
+         session.getTransaction();
           session.flush();
       session.clear();
       session.delete(object);

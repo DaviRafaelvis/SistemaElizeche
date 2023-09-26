@@ -31,9 +31,10 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
         
         produtoControle = new ProdutoControle();
         produto_DAO = new DrfProduto_DAO();
-        //List lista = produto_DAO.listAll();
-       //produtoControle.setList(lista);
-       // jTable1.setModel(produtoControle);
+        
+        List lista = produto_DAO.listAll();
+       produtoControle.setList(lista);
+        jTable1.setModel(produtoControle);
     }
 
     
@@ -69,13 +70,13 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Descrição", "Valor", "Coleção", "Categoria"
+                "Id", "Valor", "Categoria", "Coleção"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -139,8 +140,7 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
-         jDlgProdutoNovoIA.setTitle("Alteração");
-        jDlgProdutoNovoIA.setVisible(true);
+       
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed

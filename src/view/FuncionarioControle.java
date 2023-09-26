@@ -15,9 +15,10 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FuncionarioControle extends AbstractTableModel {
      private List lista;
-    
+  
     public void setList(List lista){
     this.lista = lista;
+       this.fireTableDataChanged();
     }
     
     public DrfFuncionario getBean(int row){

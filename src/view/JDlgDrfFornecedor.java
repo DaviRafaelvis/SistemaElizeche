@@ -35,8 +35,8 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     public JDlgDrfFornecedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnAlterar, jBtnExcluir);
-        Util.habilitar(true, jBtnIncluir, jBtnCancelar, jBtnPesquisar);
+        Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar, jBtnExcluir);
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnPesquisar, jBtnExcluir);
         setTitle("Fornecedor");
         setLocationRelativeTo(null);
         fornecedor_DAO = new DrfFornecedor_DAO();
@@ -261,6 +261,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        
         Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco);// TODO add your handling code here:
         incluindo = true;
 // TODO add your handling code here:
@@ -269,6 +270,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
 
+ 
         incluindo = false;// TODO add your handling code here:
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
@@ -281,7 +283,10 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
         
             Util.mensagem("Exclusão cancelada");
         }
-        Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar);    // TODO add your handling code here:
+        Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar);  
+            Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnAlterar, jBtnExcluir);
+          Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
+// TODO add your handling code here:
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
@@ -293,15 +298,16 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
             fornecedor_DAO.update(fornecedor);
         }
 
-        Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnExcluir);
-        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnAlterar, jBtnExcluir);
         Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco);  // TODO add your handling code here:
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-        Util.habilitar(false);
-        Util.mensagem("Cancelamento concluido");
+              Util.mensagem("Cancelamento concluido");
         Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj);
+         Util.habilitar(true, jBtnIncluir, jBtnPesquisar, jBtnAlterar, jBtnExcluir);
+         Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
 
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
@@ -312,7 +318,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
         jDlgFornecedorPesquisa.setVisible(true);
         
         Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnExcluir);
-        Util.habilitar(true, jBtnConfirmar, jBtnCancelar, jBtnAlterar);
+        Util.habilitar(true, jBtnConfirmar, jBtnCancelar, jBtnAlterar, jBtnExcluir);
         //transformou string em inteiro
 
         //DrfFornecedor DrfFornecedor_DAO = new DrfFornecedor_DAO();

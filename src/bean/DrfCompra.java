@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="drf_compra"
-    ,catalog="db_davi_elizeche"
+    ,catalog="db_davielizeche"
 )
 public class DrfCompra  implements java.io.Serializable {
 

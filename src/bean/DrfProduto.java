@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="drf_produto"
-    ,catalog="db_davi_elizeche"
+    ,catalog="db_davielizeche"
 )
 public class DrfProduto  implements java.io.Serializable {
 

@@ -24,7 +24,6 @@ public class JDlgDrfProdutoNovoIA extends javax.swing.JDialog {
     public JDlgDrfProdutoNovoIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
         setTitle("Inclusão de Produtos");
         setLocationRelativeTo(null);
     }

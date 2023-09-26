@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="drf_funcionario"
-    ,catalog="db_davi_elizeche"
+    ,catalog="db_davielizeche"
 )
 public class DrfFuncionario  implements java.io.Serializable {
 

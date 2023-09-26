@@ -25,15 +25,16 @@ JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
     public JDlgDrfFuncionarioNovo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+         jDlgFuncionarioNovoIA = new JDlgDrfFuncionarioNovoIA(null, true);
         setTitle("Cadastro de Funcionarios");
         setLocationRelativeTo(null);
         
         funcionarioControle = new FuncionarioControle();
         funcionario_DAO = new DrfFuncionario_DAO();
         
-       // List lista = funcionario_DAO.listAll();
-       //funcionarioControle.setList(lista);
-        //jTable1.setModel(funcionarioControle);
+       List lista = funcionario_DAO.listAll();
+       funcionarioControle.setList(lista);
+        jTable1.setModel(funcionarioControle);
     }
 
     /**
@@ -121,12 +122,12 @@ JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
  List lista= funcionario_DAO.listAll();
        funcionarioControle.setList(lista);
        jTable1.setModel(funcionarioControle);
+       
 // TODO add your handling code here:
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-   jDlgFuncionarioNovoIA.setTitle("Alteração");
-        jDlgFuncionarioNovoIA.setVisible(true);    // TODO add your handling code here:
+     // TODO add your handling code here:
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
@@ -134,8 +135,7 @@ JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
            int sel = jTable1.getSelectedRow();
            funcionario = funcionarioControle.getBean(sel);
            funcionario_DAO.delete(funcionario);
-           
-           
+           //atulizar lista no jtable
            List lista = funcionario_DAO.listAll();
            funcionarioControle.setList(lista);
         } else{
