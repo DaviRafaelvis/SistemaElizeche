@@ -9,6 +9,7 @@ import bean.DrfProduto;
 import bean.DrfUsuarios;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -61,4 +62,35 @@ public class DrfUsuariosDAO extends DAO_Abstract{
         session.getTransaction().commit();
         return lista;
 }
+    public List listNome(String nome){
+        
+         session.beginTransaction();
+    Criteria crit = session.createCriteria(DrfUsuarios.class);
+crit.add(Restrictions.like("drfNome", "%"+nome+"%"));
+List lista = crit.list();
+  session.getTransaction().commit();
+return lista;
+    
+    }
+    public List listCpf(String cpf){
+        
+         session.beginTransaction();
+    Criteria crit = session.createCriteria(DrfUsuarios.class);
+crit.add(Restrictions.like("drfCpf", "%"+cpf+"%"));
+List lista = crit.list();
+  session.getTransaction().commit();
+return lista;
+    
+    }
+      public List listNomeCpf(String cpf, String nome){
+        
+         session.beginTransaction();
+    Criteria crit = session.createCriteria(DrfUsuarios.class);
+    crit.add(Restrictions.like("drfNome", "%"+nome+"%"));
+crit.add(Restrictions.like("drfCpf", "%"+cpf+"%"));
+List lista = crit.list();
+  session.getTransaction().commit();
+return lista;
+    
+    }
 }

@@ -44,13 +44,13 @@ Contributor(s):
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     
-    <!--property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_davi_elizeche?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_davi_elizeche?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">davi_elizeche</property>
-    <property name="hibernate.connection.password">davi_elizeche</property-->
+    <property name="hibernate.connection.password">davi_elizeche</property>
     
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_davielizeche?zeroDateTimeBehavior=convertToNull</property>
+    <!--property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_davielizeche?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password"></property>
+    <property name="hibernate.connection.password"></property-->
     
     
     <mapping class="bean.DrfCompraProduto"/>
