@@ -8,6 +8,7 @@ package query;
 import bean.DrfCompra;
 import dao.DrfCompras_DAO;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ import view.ComprasControle;
 import view.JDlgDrfUsuarios;
 
 /**
- *
+ *s
  * @author rafae
  */
 public class JDlgComprasConsulta extends javax.swing.JDialog {
@@ -32,6 +33,7 @@ public DrfCompra compra;
     public JDlgComprasConsulta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
            compra_DAO = new DrfCompras_DAO();
         compraControle = new ComprasControle();    
         List lista = compra_DAO.listAll();
@@ -71,7 +73,7 @@ public DrfCompra compra;
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Compra", "Fornecedor", "Data", "Valor"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -152,24 +154,30 @@ public DrfCompra compra;
 
 
     private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
-        if(!jTxtValor.getText().equals("")){
-            List lista= compra_DAO.listValor((Util.strDouble(jTxtValor.getText())));
+        //compra_DAO, listDataValor, listValor, listData, compraControle
+        
+        
+       if (jTxtValor.getText().equals("") && jTxtData.getText().equals("")) {
+            List lista = compra_DAO.listAll();
             compraControle.setList(lista);
-        } else{
-            if (jTxtData.getText().equals("") && jTxtValor.getText().equals("") ){
-                List list = compra_DAO.listDataValor((Util.strDate(jTxtData.getText())), (Util.strDouble(jTxtValor.getText())));
-                compraControle.setList(list);
-            }}
-            if (jTxtData.getText().equals("")&& jTxtValor.getText().equals("") ){
-                List lista = compra_DAO.listData(Util.strDate(jTxtData.getText()));
+        } else {
+            if (!jTxtValor.getText().equals("") && !jTxtData.getText().equals("")) {
+                Date data = Util.strDate(jTxtData.getText());
+                List lista = compra_DAO.listDataValor(data ,Util.strDouble(jTxtValor.getText()));
                 compraControle.setList(lista);
-            }
-
-            else{
-                if (!jTxtData.getText().equals("")){
-                    List lista = compra_DAO.listData(Util.strDate(jTxtData.getText()));
+            } else {
+                if (!jTxtValor.getText().equals("")) {
+                    List lista = compra_DAO.listValor(Util.strDouble(jTxtValor.getText()));
                     compraControle.setList(lista);
-                }}
+                } else {
+                    if (!jTxtData.getText().equals("")) {
+                        Date data = Util.strDate(jTxtData.getText());
+                        List lista = compra_DAO.listData(data);
+                        compraControle.setList(lista);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jBtnConsultarActionPerformed
 
     private void jTxtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtValorActionPerformed

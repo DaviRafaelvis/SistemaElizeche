@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -19,6 +19,7 @@ JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
     FuncionarioControle funcionarioControle;
     DrfFuncionario_DAO funcionario_DAO ;
     DrfFuncionario funcionario;
+    
     /**
      * Creates new form JDlgUsuariosNovo
      */
@@ -26,7 +27,7 @@ JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
         super(parent, modal);
         initComponents();
          jDlgFuncionarioNovoIA = new JDlgDrfFuncionarioNovoIA(null, true);
-        setTitle("Cadastro de Funcionarios");
+        setTitle("Funcionario");
         setLocationRelativeTo(null);
         
         funcionarioControle = new FuncionarioControle();
@@ -63,7 +64,7 @@ JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Email", "Cpf"
+                "Id", "Nome", "Cpf", "Data"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -127,7 +128,16 @@ JDlgDrfFuncionarioNovoIA jDlgFuncionarioNovoIA;
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-     // TODO add your handling code here:
+   jDlgFuncionarioNovoIA.setTitle("Alterar");
+        
+        
+        int sel = jTable1.getSelectedRow();
+       funcionario = funcionarioControle.getBean(sel);
+         jDlgFuncionarioNovoIA.beanView(funcionario);
+        
+         jDlgFuncionarioNovoIA.setVisible(true);
+         List lista = funcionario_DAO.listAll();
+        funcionarioControle.setList(lista);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed

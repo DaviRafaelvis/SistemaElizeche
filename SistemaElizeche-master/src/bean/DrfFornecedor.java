@@ -1,5 +1,5 @@
 package bean;
-// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
+// Generated 30/11/2023 10:16:28 by Hibernate Tools 4.3.1s
 
 
 import java.util.HashSet;
@@ -28,7 +28,7 @@ public class DrfFornecedor  implements java.io.Serializable {
      private String drfCnpj;
      private String drfEndereco;
      private int drfEstado;
-     
+
 
     public DrfFornecedor() {
     }
@@ -106,8 +106,9 @@ public class DrfFornecedor  implements java.io.Serializable {
     public void setDrfEndereco(String drfEndereco) {
         this.drfEndereco = drfEndereco;
     }
+
     
-     @Column(name="drf_estado", nullable=false, length=45)
+    @Column(name="drf_estado", nullable=false)
     public int getDrfEstado() {
         return this.drfEstado;
     }
@@ -118,8 +119,17 @@ public class DrfFornecedor  implements java.io.Serializable {
 
 @Override
     public String toString(){
-        return getDrfNome();
+    return this.getDrfNome();
     }
+    @Override
+    public boolean equals (Object object){
+    if(object instanceof DrfFornecedor){
+      DrfFornecedor fornecedor = (DrfFornecedor) object;
+    if(this.getDrfIdfornecedor()==fornecedor.getDrfIdfornecedor()){
+    return true;
+    } }
+    return false;
+}
 
 
 

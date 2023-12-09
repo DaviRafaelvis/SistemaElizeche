@@ -1,5 +1,5 @@
 package bean;
-// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
+// Generated 30/11/2023 10:16:28 by Hibernate Tools 4.3.1s
 
 
 import java.util.HashSet;
@@ -24,22 +24,23 @@ public class DrfProduto  implements java.io.Serializable {
      private int drfIdProduto;
      private double drfValorUnitario;
      private String drfCategoria;
+     private String drfNomeP;
      private String drfDescricao;
      private String drfColecao;
-
-
+    
     public DrfProduto() {
     }
 
 	
-    public DrfProduto(int drfIdProduto, float drfValorUnitario, String drfCategoria, String drfDescricao, String drfColecao) {
+    public DrfProduto(int drfIdProduto, double drfValorUnitario, String drfCategoria, String drfDescricao, String drfColecao, String drfNomeP) {
         this.drfIdProduto = drfIdProduto;
         this.drfValorUnitario = drfValorUnitario;
         this.drfCategoria = drfCategoria;
+        this.drfNomeP = drfNomeP;
         this.drfDescricao = drfDescricao;
         this.drfColecao = drfColecao;
     }
-    
+   
    
      @Id 
 
@@ -54,7 +55,7 @@ public class DrfProduto  implements java.io.Serializable {
     }
 
     
-    @Column(name="drf_valor_unitario", nullable=false, precision=12, scale=0)
+    @Column(name="drf_valor_unitario", nullable=false, precision=10)
     public double getDrfValorUnitario() {
         return this.drfValorUnitario;
     }
@@ -92,10 +93,29 @@ public class DrfProduto  implements java.io.Serializable {
     public void setDrfColecao(String drfColecao) {
         this.drfColecao = drfColecao;
     }
+@Column(name="drf_nomeP", nullable=false, length=25)
+    public String getDrfNomeP() {
+        return this.drfNomeP;
+    }
+    
+    public void setDrfNomeP(String drfNomeP) {
+        this.drfNomeP = drfNomeP;
+    }
 
 
-
-
+@Override
+    public String toString(){
+    return this.getDrfNomeP();
+    }
+    @Override
+    public boolean equals (Object object){
+    if(object instanceof DrfProduto){
+        DrfProduto produto = (DrfProduto) object;
+    if(this.getDrfIdProduto()==produto.getDrfIdProduto()){
+    return true;
+    } }
+    return false;
+}
 
 
 }

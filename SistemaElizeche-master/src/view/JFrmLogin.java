@@ -1,11 +1,12 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package view;
 
-
+import bean.DrfUsuarios;
+import dao.DrfUsuariosDAO;
 import javax.swing.JOptionPane;
 import tools.Util;
 import view.*;
@@ -22,7 +23,7 @@ public class JFrmLogin extends javax.swing.JFrame {
      */
     public JFrmLogin() {
         initComponents();
-        setTitle("Login no Sistema de Vendas e Compras");
+        setTitle("Login no Sistema de Compras");
         setLocationRelativeTo(null);
     }
  JFrmLogin(boolean b) {
@@ -129,14 +130,18 @@ public class JFrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEntrarActionPerformed
-       if(jTxtUsuario.getText().equals("Elizeche") && jTPwfSenha.getText().equals("dinossauro") || jTxtUsuario.getText().equals("elizeche") && jTPwfSenha.getText().equals("dinossauro")){
-            JOptionPane.showMessageDialog(null, "Acesso Permitido!!!");
-            JFrmDrfPrincipal jFrmDrfPrincipal = new JFrmDrfPrincipal();
-            jFrmDrfPrincipal.setVisible(true);
-        }else{
-           Util.limparCampos(jTxtUsuario, jTPwfSenha);
-            JOptionPane.showMessageDialog(null, "Acesso Negado :(");
-       }
+     String usuario = jTxtUsuario.getText();
+        String senha = jTPwfSenha.getText();
+        DrfUsuariosDAO usuarios_DAO = new DrfUsuariosDAO();
+        DrfUsuarios usuariosLogin = usuarios_DAO.login(usuario, senha);
+
+        if (usuariosLogin != null) {
+            JFrmDrfPrincipal jFrmPrincipal = new JFrmDrfPrincipal();
+            jFrmPrincipal.setVisible(true);
+        } else {
+            //System.out.println("O login ou senha estão incorretos");
+            Util.mensagem("O login ou senha estão incorretos :(");
+        }
     }//GEN-LAST:event_jBtnEntrarActionPerformed
 
     private void jBtnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSairActionPerformed

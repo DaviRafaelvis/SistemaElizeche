@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -60,7 +60,7 @@ public class JDlgDrfUsuariosPesquisa extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Usuario", "Nome", "Nivel", "Cpf"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

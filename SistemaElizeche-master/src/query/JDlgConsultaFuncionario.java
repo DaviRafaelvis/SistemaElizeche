@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +7,7 @@ package query;
 
 import dao.DrfFuncionario_DAO;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,6 +78,12 @@ private JDlgDrfFuncionarioNovo jDlgFuncionario;
 
         jLabel2.setText("Data");
 
+        jTxtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtDataActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -122,7 +129,7 @@ private JDlgDrfFuncionarioNovo jDlgFuncionario;
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Nome", "Cpf", "Data"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -146,31 +153,34 @@ private JDlgDrfFuncionarioNovo jDlgFuncionario;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
-        if(!jTxtCpf.getText().equals("")){
-            List lista= funcionario_DAO.listCpf (jTxtCpf.getText());
+       // funcionarioControle, funcionario_DAO, jTxtCpf, jTxtData
+        
+        if (jTxtCpf.getText().equals("") && jTxtData.getText().equals("")) {
+            List lista = funcionario_DAO.listAll();
             funcionarioControle.setList(lista);
-            
-        }
-        
-        else{
-            if (jTxtCpf.getText().equals("") && jTxtData.getText().equals("")){
-                List lista = funcionario_DAO.listCpfData(jTxtCpf.getText(), (Util.strDate(jTxtData.getText())) );
+        } else {
+            if (!jTxtCpf.getText().equals("") && !jTxtData.getText().equals("")) {
+                Date data = Util.strDate(jTxtData.getText());
+                List lista = funcionario_DAO.listCpfData( jTxtCpf.getText(), data);
                 funcionarioControle.setList(lista);
-            }
-       
-        }
-        
-            if (jTxtData.getText().equals("")&& jTxtCpf.getText().equals("") ){
-                List lista = funcionario_DAO.listData(Util.strDate(jTxtData.getText()));
-                funcionarioControle.setList(lista);
-            }
-
-            else{
-                if (!jTxtData.getText().equals("")){
-                    List lista = funcionario_DAO.listData(Util.strDate(jTxtData.getText()));
+            } else {
+                if (!jTxtCpf.getText().equals("")) {
+                    List lista = funcionario_DAO.listCpf(jTxtCpf.getText());
                     funcionarioControle.setList(lista);
-                }} 
+                } else {
+                    if (!jTxtData.getText().equals("")) {  
+                    Date data = Util.strDate(jTxtData.getText());
+                    List lista = funcionario_DAO.listData(data);
+                    funcionarioControle.setList(lista);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jBtnConsultarActionPerformed
+
+    private void jTxtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtDataActionPerformed
 
     /**
      * @param args the command line arguments

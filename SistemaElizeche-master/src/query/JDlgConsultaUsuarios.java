@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -121,7 +121,7 @@ private JDlgDrfUsuarios jDlgUsuarios;
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Usuario", "Nome", "Nivel", "Cpf"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -145,24 +145,27 @@ private JDlgDrfUsuarios jDlgUsuarios;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
-if(!jTxtNome.getText().equals("")){
-        List lista= usuarios_DAO.listNome(jTxtNome.getText());
-        usuariosControle.setList(lista);
-} else{
-if (jTxtNome.getText().equals("") && jTxtNivel.getText().equals("")){
-    List list = usuarios_DAO.listNomeNivel(jTxtNome.getText(), Util.strInt(jTxtNivel.getText()));
-    usuariosControle.setList(list);
-}}
-if (jTxtNivel.getText().equals("")&& jTxtNome.getText().equals("") ){
-    List lista = usuarios_DAO.listNivel(Util.strInt(jTxtNivel.getText()));
-    usuariosControle.setList(lista);
-}
-
-else{
-if (!jTxtNivel.getText().equals("")){
-    List lista = usuarios_DAO.listNivel(Util.strInt(jTxtNivel.getText()));
-    usuariosControle.setList(lista);
-}}
+//usuariosControle, usuarios_DAO, ListNome, ListNomeNivel, listNivel ,List list = usuarios_DAO.listNomeNivel(jTxtNome.getText(), Util.strInt(jTxtNivel.getText()));
+        
+       if (jTxtNome.getText().equals("") && jTxtNivel.getText().equals("")) {
+            List lista = usuarios_DAO.listAll();
+            usuariosControle.setList(lista);
+        } else {
+            if (!jTxtNome.getText().equals("") && !jTxtNivel.getText().equals("")) {
+                List lista = usuarios_DAO.listNomeNivel(jTxtNome.getText(), Util.strInt(jTxtNivel.getText()));
+                usuariosControle.setList(lista);
+            } else {
+                if (!jTxtNivel.getText().equals("")) {
+                    List lista = usuarios_DAO.listNivel(Util.strInt(jTxtNivel.getText()));
+                    usuariosControle.setList(lista);
+                } else {
+                    if (!jTxtNome.getText().equals("")) {
+                        List lista = usuarios_DAO.listNome(jTxtNome.getText());
+                        usuariosControle.setList(lista);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jBtnConsultarActionPerformed
 
     /**

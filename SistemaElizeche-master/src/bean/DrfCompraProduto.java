@@ -1,10 +1,12 @@
 package bean;
-// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
+// Generated 30/11/2023 10:16:28 by Hibernate Tools 4.3.1s
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,21 +23,23 @@ public class DrfCompraProduto  implements java.io.Serializable {
 
 
      private int drfIdcompraProduto;
+     private DrfCompra drfCompra;
      private DrfProduto drfProduto;
-     private double drfQuantidade;
+     private int drfQuantidade;
      private double drfValorUnitario;
 
     public DrfCompraProduto() {
     }
 
-    public DrfCompraProduto(int drfIdcompraProduto, DrfProduto drfProduto, double drfQuantidade, double drfValorUnitario) {
+    public DrfCompraProduto(int drfIdcompraProduto, DrfCompra drfCompra, DrfProduto drfProduto, int drfQuantidade, double drfValorUnitario) {
        this.drfIdcompraProduto = drfIdcompraProduto;
+       this.drfCompra = drfCompra;
        this.drfProduto = drfProduto;
        this.drfQuantidade = drfQuantidade;
        this.drfValorUnitario = drfValorUnitario;
     }
    
-     @Id 
+     @Id@GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="drf_idcompra_produto", unique=true, nullable=false)
@@ -47,7 +51,17 @@ public class DrfCompraProduto  implements java.io.Serializable {
         this.drfIdcompraProduto = drfIdcompraProduto;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="drf_id_compra", nullable=false)
+    public DrfCompra getDrfCompra() {
+        return this.drfCompra;
+    }
+    
+    public void setDrfCompra(DrfCompra drfCompra) {
+        this.drfCompra = drfCompra;
+    }
+
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="drf_id_produto", nullable=false)
     public DrfProduto getDrfProduto() {
         return this.drfProduto;
@@ -58,22 +72,22 @@ public class DrfCompraProduto  implements java.io.Serializable {
     }
 
     
-    @Column(name="drf_quantidade", nullable=false, precision=10, scale=0)
-    public double getDrfQuantidade() {
+    @Column(name="drf_quantidade", nullable=false, precision=10)
+    public int getDrfQuantidade() {
         return this.drfQuantidade;
     }
     
-    public void setDrfQuantidade(long drfQuantidade) {
+    public void setDrfQuantidade(int drfQuantidade) {
         this.drfQuantidade = drfQuantidade;
     }
 
     
-    @Column(name="drf_valor_unitario", nullable=false, precision=10, scale=0)
+    @Column(name="drf_valor_unitario", nullable=false, precision=10)
     public double getDrfValorUnitario() {
         return this.drfValorUnitario;
     }
     
-    public void setDrfValorUnitario(long drfValorUnitario) {
+    public void setDrfValorUnitario(double drfValorUnitario) {
         this.drfValorUnitario = drfValorUnitario;
     }
 

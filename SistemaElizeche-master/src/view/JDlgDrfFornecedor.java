@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -35,7 +35,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     public JDlgDrfFornecedor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnConfirmar, jBtnCancelar, jBtnExcluir);
+        Util.habilitar(false, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco,jCboEstado, jBtnConfirmar, jBtnCancelar, jBtnExcluir);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnPesquisar, jBtnExcluir);
         setTitle("Fornecedor");
         setLocationRelativeTo(null);
@@ -184,7 +184,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
 
         jLabel6.setText("Estado");
 
-        jCboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasil", "Paraguai" }));
+        jCboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mato Grosso do Sul", "Mato Grosso", "Brasilia" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -273,7 +273,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-        Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
+        Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco,jCboEstado, jBtnCancelar, jBtnConfirmar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         
         Util.limparCampos(jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco);// TODO add your handling code here:
@@ -282,7 +282,7 @@ public class JDlgDrfFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-        Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jTxtEndereco, jBtnCancelar, jBtnConfirmar);
+        Util.habilitar(true, jTxtIdFornecedor, jTxtNome, jFmtTelefone, jTxtEmail, jFmtCnpj, jCboEstado,jTxtEndereco, jBtnCancelar, jBtnConfirmar);
 
  
         incluindo = false;// TODO add your handling code here:

@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -9,6 +9,7 @@ import bean.DrfCompra;
 import bean.DrfFornecedor;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -75,7 +76,7 @@ return lista;
         
          session.beginTransaction();
     Criteria crit = session.createCriteria(DrfFornecedor.class);
-crit.add(Restrictions.like("drfCnpj", "%"+cnpj+"%"));
+crit.add(Restrictions.like("drfCnpj", cnpj, MatchMode.ANYWHERE));
 List lista = crit.list();
   session.getTransaction().commit();
 return lista;
@@ -86,7 +87,7 @@ return lista;
          session.beginTransaction();
     Criteria crit = session.createCriteria(DrfFornecedor.class);
     crit.add(Restrictions.eq("drfEstado", estado));
-crit.add(Restrictions.like("drfCnpj", "%"+cnpj+"%"));
+crit.add(Restrictions.like("drfCnpj", cnpj, MatchMode.ANYWHERE));
 List lista = crit.list();
   session.getTransaction().commit();
 return lista;

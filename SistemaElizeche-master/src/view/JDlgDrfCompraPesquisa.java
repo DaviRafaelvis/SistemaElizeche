@@ -1,42 +1,47 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package view;
+
 import bean.DrfCompra;
 import dao.DrfCompras_DAO;
 import java.util.List;
 import view.JDlgDrfCompras;
 import dao.DrfCompras_DAO;
+
 /**
  *
  * @author u10154925179
  */
 public class JDlgDrfCompraPesquisa extends javax.swing.JDialog {
-private JDlgDrfCompras jDlgDrfCompras;
- DrfCompras_DAO compras_DAO;
+
+    private JDlgDrfCompras jDlgDrfCompras;
+    DrfCompras_DAO compras_DAO;
     ComprasControle comprasControle;
+
     /**
      * Creates new form JDlgDrfCompraPesquisa
      */
     public JDlgDrfCompraPesquisa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-               ComprasControle comprascontrole = new ComprasControle();
-     DrfCompras_DAO compras_DAO = new DrfCompras_DAO();
+        setLocationRelativeTo(null);
+
+        comprasControle = new ComprasControle();
+        compras_DAO = new DrfCompras_DAO();
         List lista = compras_DAO.listAll();
-        comprascontrole.setList(lista);
-        jTable1.setModel(comprascontrole);
+        comprasControle.setList(lista);
+        jTable1.setModel(comprasControle);
         setTitle("Registro de Compras");
         setLocationRelativeTo(null);
 
     }
- public void setTelaAnterior(JDlgDrfCompras jDlgCompras) {
-        this.jDlgDrfCompras = jDlgDrfCompras;
+
+    public void setTelaAnterior(JDlgDrfCompras jDlgCompras) {
+        this.jDlgDrfCompras = jDlgCompras;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,8 +60,9 @@ private JDlgDrfCompras jDlgDrfCompras;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/confirmar.png"))); // NOI18N
         jBtnOk.setText("OK");
         jBtnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +70,7 @@ private JDlgDrfCompras jDlgDrfCompras;
             }
         });
 
+        jBtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cancelar.png"))); // NOI18N
         jBtnCancelar.setText("Cancelar");
         jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,8 +84,8 @@ private JDlgDrfCompras jDlgDrfCompras;
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
+                .addComponent(jBtnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addComponent(jBtnCancelar)
                 .addGap(66, 66, 66))
         );
@@ -100,7 +107,7 @@ private JDlgDrfCompras jDlgDrfCompras;
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Compra", "Fornecedor", "Data", "Valor"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -124,15 +131,15 @@ private JDlgDrfCompras jDlgDrfCompras;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
-     int  rowSel = jTable1.getSelectedRow();
+        int rowSel = jTable1.getSelectedRow();
         DrfCompra compras = comprasControle.getBean(rowSel);
         jDlgDrfCompras.beanView(compras);
         setVisible(false);
-   // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jBtnOkActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     /**

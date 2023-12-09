@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +7,10 @@ package dao;
 
 import bean.DrfProduto;
 import bean.DrfUsuarios;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
@@ -62,11 +66,13 @@ public class DrfUsuariosDAO extends DAO_Abstract{
         session.getTransaction().commit();
         return lista;
 }
+    
+    
     public List listNome(String nome){
         
          session.beginTransaction();
     Criteria crit = session.createCriteria(DrfUsuarios.class);
-crit.add(Restrictions.like("drfNome", "%"+nome+"%"));
+crit.add(Restrictions.ilike("drfNome", nome, MatchMode.ANYWHERE));
 List lista = crit.list();
   session.getTransaction().commit();
 return lista;
@@ -86,11 +92,21 @@ return lista;
         
          session.beginTransaction();
     Criteria crit = session.createCriteria(DrfUsuarios.class);
-    crit.add(Restrictions.like("drfNome", "%"+nome+"%"));
+    crit.add(Restrictions.ilike("drfNome", nome, MatchMode.ANYWHERE));
 crit.add(Restrictions.eq("drfNivel", nivel));
 List lista = crit.list();
   session.getTransaction().commit();
 return lista;
     
+    }
+      
+        public DrfUsuarios login(String usuarios, String senha){
+    session.beginTransaction();
+    Criteria criteria = session.createCriteria(DrfUsuarios.class);
+    criteria.add(Restrictions.eq("drfNome", usuarios));
+    criteria.add(Restrictions.eq("drfSenha", senha));
+    DrfUsuarios usuarioAprovado = (DrfUsuarios) criteria.uniqueResult();
+    session.getTransaction().commit();
+        return usuarioAprovado;
     }
 }

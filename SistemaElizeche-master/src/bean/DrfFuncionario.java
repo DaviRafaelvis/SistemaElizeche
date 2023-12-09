@@ -1,11 +1,15 @@
 package bean;
-// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
+// Generated 30/11/2023 10:16:28 by Hibernate Tools 4.3.1s
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,26 +38,29 @@ public class DrfFuncionario  implements java.io.Serializable {
      private String drfCelular;
      private String drfPais;
      private String drfApelido;
+ 
 
     public DrfFuncionario() {
     }
 
+	
     public DrfFuncionario(int drfIdFuncionario, String drfNome, String drfEmail, String drfCpf, String drfCep, String drfTelefone, String drfRg, Date drfDataNascimento, int drfSexo, String drfCidade, String drfBairro, String drfCelular, String drfPais, String drfApelido) {
-       this.drfIdFuncionario = drfIdFuncionario;
-       this.drfNome = drfNome;
-       this.drfEmail = drfEmail;
-       this.drfCpf = drfCpf;
-       this.drfCep = drfCep;
-       this.drfTelefone = drfTelefone;
-       this.drfRg = drfRg;
-       this.drfDataNascimento = drfDataNascimento;
-       this.drfSexo = drfSexo;
-       this.drfCidade = drfCidade;
-       this.drfBairro = drfBairro;
-       this.drfCelular = drfCelular;
-       this.drfPais = drfPais;
-       this.drfApelido = drfApelido;
+        this.drfIdFuncionario = drfIdFuncionario;
+        this.drfNome = drfNome;
+        this.drfEmail = drfEmail;
+        this.drfCpf = drfCpf;
+        this.drfCep = drfCep;
+        this.drfTelefone = drfTelefone;
+        this.drfRg = drfRg;
+        this.drfDataNascimento = drfDataNascimento;
+        this.drfSexo = drfSexo;
+        this.drfCidade = drfCidade;
+        this.drfBairro = drfBairro;
+        this.drfCelular = drfCelular;
+        this.drfPais = drfPais;
+        this.drfApelido = drfApelido;
     }
+  
    
      @Id 
 
@@ -196,6 +203,20 @@ public class DrfFuncionario  implements java.io.Serializable {
     public void setDrfApelido(String drfApelido) {
         this.drfApelido = drfApelido;
     }
+
+@Override
+    public String toString(){
+    return this.getDrfNome();
+    }
+    @Override
+    public boolean equals (Object object){
+    if(object instanceof DrfFuncionario){
+      DrfFuncionario funcionario = (DrfFuncionario) object;
+    if(this.getDrfIdFuncionario()==funcionario.getDrfIdFuncionario()){
+    return true;
+    } }
+    return false;
+}
 
 
 

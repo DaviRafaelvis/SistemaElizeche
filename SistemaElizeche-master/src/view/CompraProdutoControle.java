@@ -8,7 +8,7 @@ import bean.DrfCompraProduto;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 /**
- *
+ 
  * @author rafae
  */
 public class CompraProdutoControle extends AbstractTableModel  {
@@ -16,11 +16,27 @@ public class CompraProdutoControle extends AbstractTableModel  {
     
     public void setList(List lista){
     this.lista = lista;
+    this.fireTableDataChanged();
+    
     }
     
-    public DrfCompraProduto getBean(int row){
-    return (DrfCompraProduto) lista.get(row);
+    public DrfCompraProduto getBean(int index){
+    return (DrfCompraProduto) lista.get(index);
     
+    }
+    public  void  addBean (DrfCompraProduto compraProduto){
+    lista.add(compraProduto);
+    this.fireTableDataChanged();
+    }
+
+    public void removeBean (int index){
+    lista.remove(index);
+    this.fireTableDataChanged();
+    }
+
+    public  void  updateBean (int index, DrfCompraProduto compraProduto){
+    lista.set(index, compraProduto);
+    this.fireTableDataChanged();
     }
     
     public int getRowCount() {
@@ -29,7 +45,7 @@ public class CompraProdutoControle extends AbstractTableModel  {
     }
 
     public int getColumnCount() {
-        return 3;
+        return 4;
         
     }
 
@@ -54,13 +70,13 @@ public class CompraProdutoControle extends AbstractTableModel  {
     }
     public String getColumnName(int column){
     if (column == 0){
-    return "ID";
+    return "Id";
     }
     if (column == 1){
-    return "Fornecedor";
+    return "Produto";
     }
     if (column == 2){
-    return "Data";
+    return "Quantidade";
     }
     if (column == 3){
     return "Valor";

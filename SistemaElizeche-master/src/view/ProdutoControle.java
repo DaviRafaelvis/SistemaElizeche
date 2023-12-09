@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -45,12 +45,13 @@ public class ProdutoControle extends AbstractTableModel {
         if (columnIndex == 0){
     return produto.getDrfIdProduto();
     }
-        if (columnIndex == 1){
-    return produto.getDrfValorUnitario();
+          if (columnIndex == 1){
+    return produto.getDrfNomeP();
     }
         if (columnIndex == 2){
-    return produto.getDrfCategoria();
+    return produto.getDrfValorUnitario();
     }
+      
         if (columnIndex == 3){
     return produto.getDrfColecao();
     }
@@ -65,13 +66,13 @@ public class ProdutoControle extends AbstractTableModel {
     return "ID";
     }
     if (column == 1){
-    return "Valor";
+    return "Nome";
     }
     if (column == 2){
-    return "Categoria";
+    return "Valor";
     }
     if (column == 3){
-    return "Colecao";
+    return "Coleção";
     }
    
     return "";

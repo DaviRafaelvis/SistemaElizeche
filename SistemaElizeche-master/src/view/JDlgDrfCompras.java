@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,11 +7,15 @@ package view;
 
 import dao.DrfCompras_DAO;
 import bean.DrfFuncionario;
+import dao.DrfFuncionario_DAO;
 import bean.DrfFornecedor;
 import dao.DrfFornecedor_DAO;
 
 import bean.DrfCompra;
+import bean.DrfCompraProduto;
+import dao.DrfCompraProduto_DAO;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,82 +25,101 @@ import tools.Util;
 
 /**
  *
- * @author u07875424151
+ * @author rafae
  */
-public class JDlgDrfCompras extends javax.swing.JFrame {
- public DrfCompra compra;
- public DrfCompras_DAO DrfCompras_DAO;
-   MaskFormatter mascaraData;
+public class JDlgDrfCompras extends javax.swing.JDialog {
+
+    public DrfCompra compra;
+    public DrfCompras_DAO drfCompras_DAO;
+    public DrfFornecedor_DAO fornecedor_DAO;
+    public DrfFornecedor fornecedor;
+    public DrfCompraProduto_DAO comprasProduto_DAO;
+    public DrfCompraProduto comprasProduto;
+    public JDlgDrfCompraProduto jDlgDrfCompraProduto;
+    public CompraProdutoControle compraProdutoControle;
+    MaskFormatter mascaraData;
     private boolean incluindo;
-    /**
-     * Creates new form jDlgVendas
-     */
+
     public JDlgDrfCompras(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        
-        
-       DrfFornecedor_DAO fornecedor_DAO = new DrfFornecedor_DAO();
-        List lista = fornecedor_DAO.listAll();
-        
-        for (int i = 0; i < lista.size(); i++) {
-            DrfFornecedor fornecedor = (DrfFornecedor) lista.get(i);
-            jCboFornecedor.addItem(fornecedor);
-    
-        
-        
-           Util.habilitar(false, jBtnConfirmar, jBtnCancelar, jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus,jTxtTotal, jTable1, jBtnAlterar1, jBtnIncluir1, jBtbExcluir1);
+        setLocationRelativeTo(null);
+            setTitle("Compras");
+        Util.habilitar(false, jBtnConfirmar, jBtnCancelar, jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jBtnAlterarProd, jBtnIncluirProd, jBtbExcluirProd);
         Util.habilitar(true, jBtnExcluir, jBtnIncluir, jBtnAlterar, jBtnPesquisar);
-        
+
         try {
             mascaraData = new MaskFormatter("##/##/####");
-       } catch (ParseException ex) {
+        } catch (ParseException ex) {
             Logger.getLogger(JDlgDrfCompras.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
+
+        compra = new DrfCompra();
+        drfCompras_DAO = new DrfCompras_DAO();
         
-        jFmtData.setFormatterFactory( new DefaultFormatterFactory(mascaraData));
+        comprasProduto_DAO = new DrfCompraProduto_DAO();
+        List lista = new ArrayList();
+        compraProdutoControle = new CompraProdutoControle();
+        compraProdutoControle.setList(lista);
+        jTable1.setModel(compraProdutoControle);
+
+        fornecedor_DAO = new DrfFornecedor_DAO();
+        List listaFornecedor = fornecedor_DAO.listAll();
+        for (int i = 0; i < listaFornecedor.size(); i++) {
+            fornecedor = (DrfFornecedor) listaFornecedor.get(i);
+            jCboFornecedor.addItem(fornecedor);
         }
-    
-    
-    
+
+        DrfFuncionario_DAO funcionario_DAO = new DrfFuncionario_DAO();
+        List listaFuncionario = funcionario_DAO.listAll();
+        for (int i = 0; i < listaFuncionario.size(); i++) {
+            DrfFuncionario funcionario = (DrfFuncionario) listaFuncionario.get(i);
+            jCboFuncionario.addItem(funcionario);
+        }
     }
-        
-         public DrfCompra viewBean(){ 
-        
-     compra = new DrfCompra();
-     
+
+    public DrfCompra viewBean() {
+
+        compra = new DrfCompra();
+
         compra.setDrfIdcompra(Util.strInt(jTxtCodigo.getText()));
-     
-        DrfFornecedor fornecedorS = (DrfFornecedor) jCboFornecedor.getSelectedItem();
-        compra.setDrfFornecedor(fornecedorS);
-        
-          compra.setDrfIdFuncionario(jCboFuncionario.getSelectedIndex());
+
+        compra.setDrfFornecedor((DrfFornecedor) jCboFornecedor.getSelectedItem());
+        compra.setDrfFuncionario((DrfFuncionario) jCboFuncionario.getSelectedItem());
         compra.setDrfDataCompra(Util.strDate(jFmtData.getText()));
-        compra.setDrfValorTotalCompra(Util.strDouble(jTxtTotal.getText()));       
-      compra.setDrfFormaPagamento(jCboFormaPagamento.getSelectedIndex());
+        compra.setDrfValorTotalCompra(Util.strDouble(jTxtTotal.getText()));
+        compra.setDrfFormaPagamento(jCboFormaPagamento.getSelectedIndex());
         compra.setDrfStatusCompra(jCboStatus.getSelectedIndex());
+
         return compra;
-        
+
     }
+
     public void beanView(DrfCompra compra) {
-        
-       jTxtCodigo.setText(Util.intStr(compra.getDrfIdcompra()));
+
+        jTxtCodigo.setText(Util.intStr(compra.getDrfIdcompra()));
         jCboFornecedor.setSelectedItem(compra.getDrfFornecedor());
-          jCboFuncionario.setSelectedIndex((compra.getDrfIdFuncionario()));
-    jFmtData.setText(Util.datestr(compra.getDrfDataCompra()));
-  
+        jCboFuncionario.setSelectedItem((compra.getDrfFuncionario()));
+
+        jFmtData.setText(Util.datestr(compra.getDrfDataCompra()));
         jCboFormaPagamento.setSelectedIndex(compra.getDrfFormaPagamento());
         jCboStatus.setSelectedIndex(compra.getDrfStatusCompra());
-         jTxtTotal.setText(Util.doubleStr(compra.getDrfValorTotalCompra()));
-      
-    
+        jTxtTotal.setText(Util.doubleStr(compra.getDrfValorTotalCompra()));
 
-        
+        comprasProduto_DAO = new DrfCompraProduto_DAO();
+        List listaProdutos = (List) comprasProduto_DAO.listProdutos(compra);
+
+        compraProdutoControle.setList(listaProdutos);
+
     }
 
-    private JDlgDrfCompras() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getSelectedRowProd() {
+        return jTable1.getSelectedRow();
     }
 
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,6 +129,20 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCboFornecedor = new javax.swing.JComboBox<DrfFornecedor>();
+        jBtbExcluirProd = new javax.swing.JButton();
+        jCboFuncionario = new javax.swing.JComboBox<DrfFuncionario>();
+        jLabel6 = new javax.swing.JLabel();
+        jTxtTotal = new javax.swing.JTextField();
+        jCboFormaPagamento = new javax.swing.JComboBox<>();
+        jBtnPesquisar = new javax.swing.JButton();
+        jCboStatus = new javax.swing.JComboBox<>();
+        jBtnIncluir = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jBtnExcluir = new javax.swing.JButton();
+        jBtnAlterar = new javax.swing.JButton();
+        jBtnCancelar = new javax.swing.JButton();
+        jBtnConfirmar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -114,54 +151,28 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTxtCodigo = new javax.swing.JTextField();
+        jBtnIncluirProd = new javax.swing.JButton();
         jFmtData = new javax.swing.JFormattedTextField();
-        jCboFornecedor = new javax.swing.JComboBox<DrfFornecedor>();
-        jCboFuncionario = new javax.swing.JComboBox<>();
-        jTxtTotal = new javax.swing.JTextField();
-        jBtnPesquisar = new javax.swing.JButton();
-        jBtnIncluir = new javax.swing.JButton();
-        jBtnExcluir = new javax.swing.JButton();
-        jBtnAlterar = new javax.swing.JButton();
-        jBtnCancelar = new javax.swing.JButton();
-        jBtnConfirmar = new javax.swing.JButton();
-        jBtnIncluir1 = new javax.swing.JButton();
-        jBtnAlterar1 = new javax.swing.JButton();
-        jBtbExcluir1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jCboFormaPagamento = new javax.swing.JComboBox<>();
-        jCboStatus = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
+        jBtnAlterarProd = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Num Compra");
-
-        jLabel2.setText("Data");
-
-        jLabel3.setText("Fornecedor");
-
-        jLabel4.setText("Funcionario");
-
-        jLabel5.setText("Total");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "PRODUTO", "QUANTIDADE", "VALOR UNITARIO", "TOTAL"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jCboFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCboFornecedorActionPerformed(evt);
             }
         });
+
+        jBtbExcluirProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
+        jBtbExcluirProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtbExcluirProdActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Forma Pagamento");
+
+        jCboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartão", "Pix" }));
 
         jBtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pesquisar.png"))); // NOI18N
         jBtnPesquisar.setText("Pesquisar");
@@ -171,6 +182,8 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
             }
         });
 
+        jCboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Concluida", "Em andamento", "Cancelada" }));
+
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
         jBtnIncluir.setText("Incluir");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +191,8 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
                 jBtnIncluirActionPerformed(evt);
             }
         });
+
+        jLabel7.setText("Status");
 
         jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
         jBtnExcluir.setText("Excluir");
@@ -211,34 +226,42 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
             }
         });
 
-        jBtnIncluir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
-        jBtnIncluir1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Num Compra");
+
+        jLabel2.setText("Data");
+
+        jLabel3.setText("Fornecedor");
+
+        jLabel4.setText("Funcionario");
+
+        jLabel5.setText("Total");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "PRODUTO", "QUANTIDADE", "VALOR UNITARIO", "TOTAL"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jBtnIncluirProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
+        jBtnIncluirProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnIncluir1ActionPerformed(evt);
+                jBtnIncluirProdActionPerformed(evt);
             }
         });
 
-        jBtnAlterar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
-        jBtnAlterar1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnAlterarProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/alterar.png"))); // NOI18N
+        jBtnAlterarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnAlterar1ActionPerformed(evt);
+                jBtnAlterarProdActionPerformed(evt);
             }
         });
-
-        jBtbExcluir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Excluir.png"))); // NOI18N
-        jBtbExcluir1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtbExcluir1ActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Forma Pagamento");
-
-        jCboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartão", "Pix" }));
-
-        jCboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel7.setText("Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -274,9 +297,9 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jBtnIncluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jBtbExcluir1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBtnAlterar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jBtnIncluirProd, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtbExcluirProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jBtnAlterarProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jBtnIncluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -297,7 +320,7 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jCboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,11 +352,11 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtnIncluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnIncluirProd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(jBtnAlterar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnAlterarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jBtbExcluir1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtbExcluirProd, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -354,66 +377,133 @@ public class JDlgDrfCompras extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCboFornecedorActionPerformed
 
+    private void jBtbExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtbExcluirProdActionPerformed
+        if (getSelectedRowProd() == -1) {
+            Util.mensagem("Nenhuma linha selecionada");
+        } else {
+            if (Util.perguntar("ConfirmarExclusão do produto") == true) {
+                compraProdutoControle.removeBean(getSelectedRowProd());
+            }
+        }
+       
+    }//GEN-LAST:event_jBtbExcluirProdActionPerformed
+
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-JDlgDrfCompraPesquisa jDlgDrfCompraPesquisa = new JDlgDrfCompraPesquisa(null, true);
+        JDlgDrfCompraPesquisa jDlgDrfCompraPesquisa = new JDlgDrfCompraPesquisa(null, true);
         jDlgDrfCompraPesquisa.setTelaAnterior(this);
         jDlgDrfCompraPesquisa.setVisible(true);
-
+           
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-        Util.habilitar(true,  jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus,jTxtTotal, jBtnConfirmar, jBtnCancelar, jBtnAlterar1, jBtnIncluir1, jBtbExcluir1);
-        Util.habilitar(false,jBtnExcluir, jBtnIncluir, jBtnAlterar, jBtnPesquisar); // TODO add your handling code here:
+        Util.habilitar(true, jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jBtnConfirmar, jBtnCancelar, jBtnAlterarProd, jBtnIncluirProd, jBtbExcluirProd, jTable1);
+        Util.habilitar(false, jBtnExcluir, jBtnIncluir, jBtnAlterar, jBtnPesquisar); // TODO add your handling code here:
 
+        Util.limparCampos(jTxtCodigo, jFmtData, jCboFornecedor, jCboFuncionario, jTxtTotal, jCboFormaPagamento, jCboStatus);
+
+        compraProdutoControle.setList(new ArrayList());
+        jTxtCodigo.grabFocus();
+        incluindo = true;
+        compra = new DrfCompra();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        // TODO add your handling code here:
-
-
+        if (compra != null) {
+            if (Util.perguntar("Deseja excluir a Compra ?") == true) {
+                comprasProduto_DAO = new DrfCompraProduto_DAO();
+                DrfCompraProduto compraProduto;
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                    compraProduto = compraProdutoControle.getBean(linha);
+                    comprasProduto_DAO.delete(compraProduto);
+                }
+                comprasProduto_DAO.delete(compra);
+               
+            }
+        } else {
+            Util.mensagem("Deve ser realizada uma pesquisa antes");
+        }
+Util.limparCampos(jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jTable1);
+            compraProdutoControle.setList(new ArrayList());                                                                                                                  
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-         Util.habilitar(true,  jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus,jTxtTotal, jBtnConfirmar, jBtnCancelar, jBtnAlterar1, jBtnIncluir1, jBtbExcluir1);
-        Util.habilitar(false,jBtnExcluir, jBtnIncluir, jBtnAlterar, jBtnPesquisar);
 
+        Util.habilitar(false, jBtnExcluir, jBtnIncluir, jBtnAlterar, jBtnPesquisar);
+
+        if (compra != null) {
+            
+           comprasProduto_DAO = new DrfCompraProduto_DAO();
+                DrfCompraProduto compraProduto;
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                    compraProduto = compraProdutoControle.getBean(linha);
+                    comprasProduto_DAO.delete(compraProduto);}
+                
+                
+         
+            
+        } else {
+            Util.mensagem("Deve ser realizada uma pesquisa antes");
+        }
+incluindo = false;
+   Util.habilitar(true, jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jBtnConfirmar, jBtnCancelar, jBtnAlterarProd, jBtnIncluirProd, jBtbExcluirProd, jTable1);
+   Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-             Util.habilitar(false, jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus,jTxtTotal, jBtnConfirmar, jBtnCancelar, jBtnAlterar1, jBtnIncluir1, jBtbExcluir1);
-        Util.habilitar(true, jBtnExcluir, jBtnIncluir, jBtnAlterar, jBtnPesquisar);
-        Util.limparCampos(jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus,jTxtTotal, jTable1);
-
+        compraProdutoControle.setList(new ArrayList());
+        Util.habilitar(false, jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jBtnConfirmar, jBtnCancelar,jBtnExcluir,jBtnAlterar, jBtnAlterarProd, jBtnIncluirProd, jBtbExcluirProd);
+        Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+        Util.limparCampos(jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jTable1);
+       
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         compra = viewBean();
+ drfCompras_DAO = new DrfCompras_DAO();
         
-        if (incluindo == true){
-            DrfCompras_DAO.insert(compra);
+        if (incluindo == true) {
+            drfCompras_DAO.insert(compra);
+            comprasProduto_DAO = new DrfCompraProduto_DAO();
+            DrfCompraProduto compraProduto;
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                compraProduto = compraProdutoControle.getBean(linha);
+                compraProduto.setDrfCompra(compra);
+                comprasProduto_DAO.insert(compraProduto);
+
+            }
+
         } else {
-            DrfCompras_DAO.update(compra);
+            drfCompras_DAO.update(compra);
+            comprasProduto_DAO = new DrfCompraProduto_DAO();
+            DrfCompraProduto compraProduto;
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                compraProduto = compraProdutoControle.getBean(linha);
+                compraProduto.setDrfCompra(compra);
+                comprasProduto_DAO.insert(compraProduto);
+            }
+       Util.habilitar(true, jBtnIncluir, jBtnPesquisar);
+            Util.habilitar(false, jBtnExcluir, jBtnAlterar, jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jTable1);
+            Util.limparCampos(jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus, jTxtTotal, jTable1);
+             compraProdutoControle.setList(new ArrayList());
         }
-        
-        Util.habilitar(false,jBtnExcluir, jBtnIncluir, jBtnAlterar, jBtnPesquisar);
-        Util.limparCampos(jTxtCodigo, jCboFornecedor, jFmtData, jCboFuncionario, jCboFormaPagamento, jCboStatus,jTxtTotal, jTable1);
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
-    private void jBtnIncluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluir1ActionPerformed
-           JDlgDrfCompraProduto jDlgDrfCompraProduto = new JDlgDrfCompraProduto(null, true);
-        jDlgDrfCompraProduto.setTitle("Inclusão de Produtos");
+    private void jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirProdActionPerformed
+        jDlgDrfCompraProduto = new JDlgDrfCompraProduto(null, true);
+        jDlgDrfCompraProduto.setTitle("Inclusão de produtos");
+        jDlgDrfCompraProduto.setTelaAnterior(this);
         jDlgDrfCompraProduto.setVisible(true);
-    }//GEN-LAST:event_jBtnIncluir1ActionPerformed
+    }//GEN-LAST:event_jBtnIncluirProdActionPerformed
 
-    private void jBtnAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterar1ActionPerformed
-       JDlgDrfCompraProduto jDlgDrfCompraProduto = new JDlgDrfCompraProduto(null, true);
-        jDlgDrfCompraProduto.setTitle("Alterando de Produtos");
+    private void jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarProdActionPerformed
+        jDlgDrfCompraProduto = new JDlgDrfCompraProduto(null, true);
+        jDlgDrfCompraProduto.setTitle("Alteração de produtos");
+        jDlgDrfCompraProduto.setTelaAnterior(this);
+        int linSel = jTable1.getSelectedRow();
+        DrfCompraProduto compraProduto = (DrfCompraProduto) compraProdutoControle.getBean(linSel);
+        jDlgDrfCompraProduto.beanView(compraProduto);
         jDlgDrfCompraProduto.setVisible(true);
-    }//GEN-LAST:event_jBtnAlterar1ActionPerformed
-
-    private void jBtbExcluir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtbExcluir1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtbExcluir1ActionPerformed
+    }//GEN-LAST:event_jBtnAlterarProdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,31 +531,35 @@ JDlgDrfCompraPesquisa jDlgDrfCompraPesquisa = new JDlgDrfCompraPesquisa(null, tr
             java.util.logging.Logger.getLogger(JDlgDrfCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JDlgDrfCompras().setVisible(true);
+                JDlgDrfCompras dialog = new JDlgDrfCompras(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtbExcluir1;
+    private javax.swing.JButton jBtbExcluirProd;
     private javax.swing.JButton jBtnAlterar;
-    private javax.swing.JButton jBtnAlterar1;
+    private javax.swing.JButton jBtnAlterarProd;
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnConfirmar;
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
-    private javax.swing.JButton jBtnIncluir1;
+    private javax.swing.JButton jBtnIncluirProd;
     private javax.swing.JButton jBtnPesquisar;
     private javax.swing.JComboBox<String> jCboFormaPagamento;
     private javax.swing.JComboBox<DrfFornecedor> jCboFornecedor;
-    private javax.swing.JComboBox jCboFuncionario;
+    private javax.swing.JComboBox<DrfFuncionario> jCboFuncionario;
     private javax.swing.JComboBox<String> jCboStatus;
     private javax.swing.JFormattedTextField jFmtData;
     private javax.swing.JLabel jLabel1;

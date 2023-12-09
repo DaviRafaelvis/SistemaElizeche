@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -32,7 +32,7 @@ public class JDlgDrfFuncionarioNovoIA extends javax.swing.JDialog {
     public JDlgDrfFuncionarioNovoIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Inclusão de Funcionario");
+       
         setLocationRelativeTo(null);
        funcionario_DAO = new DrfFuncionario_DAO();
         try {
@@ -340,8 +340,13 @@ public class JDlgDrfFuncionarioNovoIA extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
          funcionario = viewBean();
-      
-        funcionario_DAO.insert(funcionario);
+       DrfFuncionario_DAO funcionarioDAO = new DrfFuncionario_DAO();
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+          funcionarioDAO.insert(funcionario);
+        } else {            
+          funcionarioDAO.update(funcionario);
+        }
+       
 
         setVisible(false);
         // TODO add your handling code here:

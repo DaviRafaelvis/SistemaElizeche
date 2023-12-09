@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
-
+s
 Copyright (c) 2008, 2016 Oracle and/or its affiliates. All rights reserved.
 
 Oracle and Java are registered trademarks of Oracle and/or its affiliates.
@@ -40,11 +40,11 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="db_davielizeche"/>
-  <table-filter match-name="drf_compra"/>
-  <table-filter match-name="drf_funcionario"/>
-  <table-filter match-name="drf_usuarios"/>
+  <schema-selection match-catalog="db_davi_elizeche"/>
   <table-filter match-name="drf_produto"/>
+  <table-filter match-name="drf_usuarios"/>
+  <table-filter match-name="drf_compra"/>
   <table-filter match-name="drf_compra_produto"/>
+  <table-filter match-name="drf_funcionario"/>
   <table-filter match-name="drf_fornecedor"/>
 </hibernate-reverse-engineering>

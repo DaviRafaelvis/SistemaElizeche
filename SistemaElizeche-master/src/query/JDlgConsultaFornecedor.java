@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +7,7 @@ package query;
 
 import bean.DrfFornecedor;
 import dao.DrfFornecedor_DAO;
+import java.util.Date;
 import java.util.List;
 import tools.Util;
 import view.FornecedorControle;
@@ -66,7 +67,7 @@ public class JDlgConsultaFornecedor extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Nome", "CNPJ", "Estado"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -140,24 +141,30 @@ public class JDlgConsultaFornecedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
-        if(!jTxtEstado.getText().equals("")){
-            List lista= fornecedor_DAO.listEstado((Util.strInt(jTxtEstado.getText())));
+        //fornecedor_DAO, fornecedorControle, jTxtEstado, jTxtCnpj,  List list = fornecedor_DAO.listEstadoCnpj((Util.strInt(jTxtEstado.getText())), jTxtCnpj.getText());
+        
+        
+          if (jTxtEstado.getText().equals("") && jTxtCnpj.getText().equals("")) {
+            List lista = fornecedor_DAO.listAll();
             fornecedorControle.setList(lista);
-        } else{
-            if (jTxtEstado.getText().equals("") && jTxtCnpj.getText().equals("")){
-                List list = fornecedor_DAO.listEstadoCnpj((Util.strInt(jTxtEstado.getText())), jTxtCnpj.getText());
+        } else {
+            if (!jTxtEstado.getText().equals("") && !jTxtCnpj.getText().equals("")) {
+    
+               List list = fornecedor_DAO.listEstadoCnpj((Util.strInt(jTxtEstado.getText())), jTxtCnpj.getText());
                 fornecedorControle.setList(list);
-            }}
-            if (jTxtCnpj.getText().equals("")&& jTxtEstado.getText().equals("") ){
-                List lista = fornecedor_DAO.listCnpj(jTxtCnpj.getText());
-                fornecedorControle.setList(lista);
-            }
-
-            else{
-                if (!jTxtCnpj.getText().equals("")){
+            } else {
+                if (!jTxtEstado.getText().equals("")) {
+                    List lista = fornecedor_DAO.listEstado((Util.strInt(jTxtEstado.getText())));
+                    fornecedorControle.setList(lista);
+                } else {
+                    if (!jTxtCnpj.getText().equals("")) {  
+                 
                     List lista = fornecedor_DAO.listCnpj(jTxtCnpj.getText());
                     fornecedorControle.setList(lista);
-                }} 
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jBtnConsultarActionPerformed
 
     /**

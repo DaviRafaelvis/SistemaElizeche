@@ -1,10 +1,11 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package dao;
 
+import bean.DrfCompra;
 import bean.DrfCompraProduto;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -16,6 +17,15 @@ import org.hibernate.criterion.Restrictions;
  */
 public class DrfCompraProduto_DAO extends DAO_Abstract{
 
+     public Object listProdutos(DrfCompra compra) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(DrfCompraProduto.class);
+        criteria.add(Restrictions.eq("drfCompra", compra));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+     
     @Override
     public void insert(Object object) {
        session.beginTransaction();
@@ -59,4 +69,6 @@ public class DrfCompraProduto_DAO extends DAO_Abstract{
          List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
-}}
+}
+ 
+}

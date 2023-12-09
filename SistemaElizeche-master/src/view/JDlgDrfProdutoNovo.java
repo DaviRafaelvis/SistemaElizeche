@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,7 +26,7 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         jDlgProdutoNovoIA = new JDlgDrfProdutoNovoIA(null, true);
-        setTitle("Cadastro de Usuários");
+        setTitle("Produtos");
         setLocationRelativeTo(null);
         
         produtoControle = new ProdutoControle();
@@ -76,7 +76,7 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Valor", "Categoria", "Coleção"
+                "Id", "Produto", "Valor", "Coleção"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -136,9 +136,21 @@ public class JDlgDrfProdutoNovo extends javax.swing.JDialog {
         List lista= produto_DAO.listAll();
        produtoControle.setList(lista);
        jTable1.setModel(produtoControle);
+       
+       Util.limparCampos();
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
+ jDlgProdutoNovoIA.setTitle("Alterar");
+        
+        
+        int sel = jTable1.getSelectedRow();
+       produto = produtoControle.getBean(sel);
+         jDlgProdutoNovoIA.beanView(produto);
+        
+         jDlgProdutoNovoIA.setVisible(true);
+         List lista = produto_DAO.listAll();
+        produtoControle.setList(lista);
         // TODO add your handling code here:
        
     }//GEN-LAST:event_jBtnAlterarActionPerformed

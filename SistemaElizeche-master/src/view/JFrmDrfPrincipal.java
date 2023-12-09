@@ -1,11 +1,12 @@
 package view;
 
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+import query.JDlgComprasConsulta;
 import query.JDlgConsultaFornecedor;
 import query.JDlgConsultaFuncionario;
 import query.JDlgConsultaProdutos;
@@ -55,7 +56,7 @@ public class JFrmDrfPrincipal extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
-        jBtnFuncionariosT = new javax.swing.JButton();
+        jBtnProdutoT = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         jBtnFornecedorT = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
@@ -107,16 +108,16 @@ public class JFrmDrfPrincipal extends javax.swing.JFrame {
         jToolBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jToolBar1.setRollover(true);
 
-        jBtnFuncionariosT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/funcionario.icon.png"))); // NOI18N
-        jBtnFuncionariosT.setFocusable(false);
-        jBtnFuncionariosT.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtnFuncionariosT.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtnFuncionariosT.addActionListener(new java.awt.event.ActionListener() {
+        jBtnProdutoT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Produto.icon.png"))); // NOI18N
+        jBtnProdutoT.setFocusable(false);
+        jBtnProdutoT.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnProdutoT.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtnProdutoT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnFuncionariosTActionPerformed(evt);
+                jBtnProdutoTActionPerformed(evt);
             }
         });
-        jToolBar1.add(jBtnFuncionariosT);
+        jToolBar1.add(jBtnProdutoT);
         jToolBar1.add(jSeparator3);
 
         jBtnFornecedorT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendedor icone.png"))); // NOI18N
@@ -142,7 +143,7 @@ public class JFrmDrfPrincipal extends javax.swing.JFrame {
         });
         jToolBar1.add(jBtnComprasT);
 
-        jBtnProdutosT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Produto.icon.png"))); // NOI18N
+        jBtnProdutosT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produto.png"))); // NOI18N
         jBtnProdutosT.setFocusable(false);
         jBtnProdutosT.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtnProdutosT.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -338,11 +339,11 @@ jDlgConsultaProdutos.setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_jMnuConsultaProdActionPerformed
 
-    private void jBtnFuncionariosTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnFuncionariosTActionPerformed
-JDlgDrfFuncionarioNovo jDlgFuncionarioNovo = new JDlgDrfFuncionarioNovo(null, true);
-       jDlgFuncionarioNovo.setVisible(true);
+    private void jBtnProdutoTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnProdutoTActionPerformed
+JDlgDrfProdutoNovo jDlgDrfProdutoNovo = new JDlgDrfProdutoNovo(null, true);
+       jDlgDrfProdutoNovo.setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnFuncionariosTActionPerformed
+    }//GEN-LAST:event_jBtnProdutoTActionPerformed
 
     private void jBtnFornecedorTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnFornecedorTActionPerformed
         JDlgDrfFornecedor jDlgFornecedor = new JDlgDrfFornecedor(null,true);
@@ -351,14 +352,14 @@ JDlgDrfFuncionarioNovo jDlgFuncionarioNovo = new JDlgDrfFuncionarioNovo(null, tr
     }//GEN-LAST:event_jBtnFornecedorTActionPerformed
 
     private void jBtnComprasTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnComprasTActionPerformed
-       JDlgDrfCompras jDlgCompras = new JDlgDrfCompras(null,true);
-        jDlgCompras.setVisible(true); 
+       JDlgComprasConsulta jDlgComprasConsulta = new JDlgComprasConsulta(null,true);
+        jDlgComprasConsulta.setVisible(true); 
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnComprasTActionPerformed
 
     private void jBtnProdutosTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnProdutosTActionPerformed
- JDlgDrfProdutoNovo jDlgProdutoNovo = new JDlgDrfProdutoNovo(null,true);
-        jDlgProdutoNovo.setVisible(true);     
+ JDlgConsultaProdutos jDlgConsultaProdutos = new JDlgConsultaProdutos(null,true);
+        jDlgConsultaProdutos.setVisible(true);     
 // TODO add your handling code here:
     }//GEN-LAST:event_jBtnProdutosTActionPerformed
 
@@ -421,7 +422,7 @@ JDlgDrfFuncionarioNovo jDlgFuncionarioNovo = new JDlgDrfFuncionarioNovo(null, tr
     private javax.swing.JMenu Consultas;
     private javax.swing.JButton jBtnComprasT;
     private javax.swing.JButton jBtnFornecedorT;
-    private javax.swing.JButton jBtnFuncionariosT;
+    private javax.swing.JButton jBtnProdutoT;
     private javax.swing.JButton jBtnProdutosT;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JMenu jMenu1;

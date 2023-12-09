@@ -1,14 +1,17 @@
 package bean;
-// Generated 22/09/2023 15:22:46 by Hibernate Tools 4.3.1
+// Generated 30/11/2023 10:16:28 by Hibernate Tools 4.3.1s
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,24 +28,27 @@ public class DrfCompra  implements java.io.Serializable {
 
      private int drfIdcompra;
      private DrfFornecedor drfFornecedor;
-     private int drfIdFuncionario;
+     private DrfFuncionario drfFuncionario;
      private Date drfDataCompra;
      private double drfValorTotalCompra;
      private int drfFormaPagamento;
      private int drfStatusCompra;
 
+
     public DrfCompra() {
     }
 
-    public DrfCompra(int drfIdcompra, DrfFornecedor drfFornecedor, int drfIdFuncionario, Date drfDataCompra, double drfValorTotalCompra, int drfFormaPagamento, int drfStatusCompra) {
-       this.drfIdcompra = drfIdcompra;
-       this.drfFornecedor = drfFornecedor;
-       this.drfIdFuncionario = drfIdFuncionario;
-       this.drfDataCompra = drfDataCompra;
-       this.drfValorTotalCompra = drfValorTotalCompra;
-       this.drfFormaPagamento = drfFormaPagamento;
-       this.drfStatusCompra = drfStatusCompra;
+	
+    public DrfCompra(int drfIdcompra, DrfFornecedor drfFornecedor, DrfFuncionario drfFuncionario, Date drfDataCompra, double drfValorTotalCompra, int drfFormaPagamento, int drfStatusCompra) {
+        this.drfIdcompra = drfIdcompra;
+        this.drfFornecedor = drfFornecedor;
+        this.drfFuncionario = drfFuncionario;
+        this.drfDataCompra = drfDataCompra;
+        this.drfValorTotalCompra = drfValorTotalCompra;
+        this.drfFormaPagamento = drfFormaPagamento;
+        this.drfStatusCompra = drfStatusCompra;
     }
+   
    
      @Id 
 
@@ -56,7 +62,7 @@ public class DrfCompra  implements java.io.Serializable {
         this.drfIdcompra = drfIdcompra;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="drf_id_fornecedor", nullable=false)
     public DrfFornecedor getDrfFornecedor() {
         return this.drfFornecedor;
@@ -66,14 +72,14 @@ public class DrfCompra  implements java.io.Serializable {
         this.drfFornecedor = drfFornecedor;
     }
 
-    
-    @Column(name="drf_id_funcionario", nullable=false)
-    public int getDrfIdFuncionario() {
-        return this.drfIdFuncionario;
+@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="drf_id_funcionario", nullable=false)
+    public DrfFuncionario getDrfFuncionario() {
+        return this.drfFuncionario;
     }
     
-    public void setDrfIdFuncionario(int drfIdFuncionario) {
-        this.drfIdFuncionario = drfIdFuncionario;
+    public void setDrfFuncionario(DrfFuncionario drfFuncionario) {
+        this.drfFuncionario = drfFuncionario;
     }
 
     @Temporal(TemporalType.DATE)
@@ -87,7 +93,7 @@ public class DrfCompra  implements java.io.Serializable {
     }
 
     
-    @Column(name="drf_valor_total_compra", nullable=false, precision=10, scale=0)
+    @Column(name="drf_valor_total_compra", nullable=false, precision=10)
     public double getDrfValorTotalCompra() {
         return this.drfValorTotalCompra;
     }
@@ -97,7 +103,7 @@ public class DrfCompra  implements java.io.Serializable {
     }
 
     
-    @Column(name="drf_forma_pagamento", nullable=false, length=45)
+    @Column(name="drf_forma_pagamento", nullable=false)
     public int getDrfFormaPagamento() {
         return this.drfFormaPagamento;
     }
@@ -115,6 +121,7 @@ public class DrfCompra  implements java.io.Serializable {
     public void setDrfStatusCompra(int drfStatusCompra) {
         this.drfStatusCompra = drfStatusCompra;
     }
+
 
 
 

@@ -1,4 +1,4 @@
-/*
+/*s
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -113,7 +113,7 @@ public class JDlgConsultaProdutos extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Produto", "Valor", "Coleção"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -137,25 +137,27 @@ public class JDlgConsultaProdutos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultarActionPerformed
-        if(!jTxtValor.getText().equals("")){
-            List lista= produto_DAO.listValor ((Util.strDouble(jTxtValor.getText())));
-            produtoControle.setList(lista);
-            
-        } else{
-            if (jTxtValor.getText().equals("") && jTxtColecao.getText().equals("")){
-                List list = produto_DAO.listValorColecao((Util.strDouble(jTxtValor.getText())), jTxtColecao.getText());
-                produtoControle.setList(list);
-            }}
-            if (jTxtColecao.getText().equals("")&& jTxtValor.getText().equals("") ){
-                List lista = produto_DAO.listColecao(jTxtColecao.getText());
+       //produtoControle, produto_DAO, listColecao, listValorColecao,
+        
+        if (jTxtValor.getText().equals("") && jTxtColecao.getText().equals("")) {
+            List lista = produto_DAO.listAll();
+           produtoControle.setList(lista);
+        } else {
+            if (!jTxtValor.getText().equals("") && !jTxtColecao.getText().equals("")) {
+                List lista = produto_DAO.listValorColecao(Util.strDouble(jTxtValor.getText()), jTxtColecao.getText());
                 produtoControle.setList(lista);
-            }
-
-            else{
-                if (!jTxtColecao.getText().equals("")){
+            } else {
+                if (!jTxtColecao.getText().equals("")) {
                     List lista = produto_DAO.listColecao(jTxtColecao.getText());
                     produtoControle.setList(lista);
-                }}
+                } else {
+                    if (!jTxtValor.getText().equals("")) {
+                        List lista =produto_DAO.listValor(Util.strDouble(jTxtValor.getText()));
+                        produtoControle.setList(lista);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jBtnConsultarActionPerformed
 
     /**
